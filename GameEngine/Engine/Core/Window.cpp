@@ -111,6 +111,15 @@ SDL_Window * Window::GetWindow() const
 
 void Window::SetPreAttributes()
 {
+	/* 
+	SetAttributes:
+	1st = Removes deprecated functions. Set's profile mask to core profile.
+	2nd and 3rd = Sets OpenGL version (v4.5).
+	4th = Enables double buffer.
+	5th = Synchronizes swap interval to be euqal w/ vertical retrace of the screen.
+	6th = Sets Glew experimental to true, part of Glew Lib, must be set to true before 
+	initalizing glew, or errors will occur.
+	*/
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
@@ -121,5 +130,5 @@ void Window::SetPreAttributes()
 
 void Window::SetPostAttributes()
 {
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 32); // Sets buffer size to 32 bits.
 }

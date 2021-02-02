@@ -1,4 +1,4 @@
-#include "Window.h" // self explanatory, allows acess of entire window class
+#include "Engine/Core/Window.h" // self explanatory, allows acess of entire window class
 
 Window* window; // creates global window pointer
 
@@ -28,3 +28,4 @@ int main(int argc, char* argv[])
 	return 0;
 
 }
+
