@@ -1,5 +1,13 @@
 #include "CoreEngine.h"
 
+/*
+Since it's a static, it must be redeclared at the top of the engine. This goes with any other static vars.
+
+Must start with signature/datatype (std::unique_ptr<CoreEngine>)
+Then, specify the specific varable name of static var (CoreEngine::engineInstance)
+Ten give it a default value, in this case it's just (nullptr)
+*/
+std::unique_ptr<CoreEngine> CoreEngine::engineInstance = nullptr;
 
 /* 
 Sets default value for window.
@@ -8,6 +16,25 @@ Makes sure that the engine is(NOT)Running.
 CoreEngine::CoreEngine() : window(nullptr), isRunning(false) {} 
 
 CoreEngine::~CoreEngine() {}
+
+// What gets called when you want to acess anything from the engine that's public.
+CoreEngine * CoreEngine::GetInstance()
+{
+	/*
+	Checks if any instance has been created before for this unique ptr.
+
+	If not, and it's the first time the instance gets function has been called,
+	then it's nullptr and reset with a new CoreEngine.
+
+	This is what calls the core engine constructor.
+	*/
+	if (engineInstance.get() == nullptr)
+	{
+		engineInstance.reset(new CoreEngine);
+	}
+
+	return engineInstance.get(); // returns what that pointer is holding.
+}
 
 // Has the same parameters as Windows onCreate since it does call that function.
 bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
