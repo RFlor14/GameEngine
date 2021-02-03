@@ -1,8 +1,11 @@
 #ifndef COREENGINE_H
 #define COREENGINE_H
 
-#include "Window.h"
+
 #include <memory> // Allows the acess of smart pointers.
+#include "Window.h"
+#include "Timer.h"
+
 class CoreEngine
 {
 public:
@@ -52,6 +55,9 @@ private:
 
 	Window* window; // This is the window class that we created.
 	bool isRunning; // Check's if engine "isRunning".
+
+	Timer timer; // Timer instance
+	unsigned int fps;
 };
 
 #endif // !COREENGINE_H

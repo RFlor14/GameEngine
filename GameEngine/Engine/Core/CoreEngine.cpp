@@ -11,9 +11,12 @@ std::unique_ptr<CoreEngine> CoreEngine::engineInstance = nullptr;
 
 /* 
 Sets default value for window.
+
 Makes sure that the engine is(NOT)Running.
+
+Set's fps to 60.
 */
-CoreEngine::CoreEngine() : window(nullptr), isRunning(false) {} 
+CoreEngine::CoreEngine() : window(nullptr), isRunning(false), fps(60) {} 
 
 CoreEngine::~CoreEngine() {}
 
@@ -59,6 +62,9 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 		return isRunning = false;
 	}
 
+	// Starts the timer, must be done before setting isRunning to true.
+	timer.Start();
+
 	// If everything goes well, engines onCreate sets isRunning var to true.
 	return isRunning = true;
 }
@@ -81,8 +87,16 @@ void CoreEngine::Run()
 
 	while (isRunning)
 	{
-		Update(0.016f); // Updates in 60fps (1/60 = 0.0167).
+		timer.UpdateFrameTicks(); // Again, just updates previous and current ticks varables equal to.
+		Update(timer.GetDeltaTime()); // Uses our GetDeltaTime function, instead of hardcoding
 		Render();
+
+		/*
+		Stops the engine for as many millisec as we pass in.
+
+		Passing in fps will dictate how much sleep time will need to be returned.
+		*/
+		SDL_Delay(timer.GetSleepTime(fps)); 
 	}
 
 	/* 
@@ -104,7 +118,10 @@ bool CoreEngine::GetIsRunning()
 	return isRunning;
 }
 
-void CoreEngine::Update(const float deltaTime_) {}
+void CoreEngine::Update(const float deltaTime_) 
+{
+	std::cout << deltaTime_ << std::endl; // verifies if timer is working properly.
+}
 
 void CoreEngine::Render()
 {
