@@ -14,7 +14,7 @@ public:
 	~Window(); // destructor
 
 	/* name with _ at the end because there are some system 
-	variables that has an _, which you shouldnt touch.
+	variables that has an _, which you shouldn't touch.
 	
 	Also lets you know that it's a parameter, also lets you do things like
 	width = width_ vs this->width = width_*/

@@ -16,7 +16,7 @@ public:
 	This can be used for any class that you want, where you want to make sure
 	no one can be able to use a copy or move constructor for it.
 
-	Makes sure that if anyone tries to move or a copy constructor of this class, if so give an error.
+	Makes sure that if anyone tries to move or a copy constructor of this class, give out an error.
 	*/
 	CoreEngine(const CoreEngine&) = delete;
 	CoreEngine(CoreEngine&&) = delete;

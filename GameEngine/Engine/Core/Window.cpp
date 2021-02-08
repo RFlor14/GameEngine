@@ -30,7 +30,7 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
 	SetPreAttributes(); //calls in PreAttribute function
 
 	/*
-	Creates the window w/ the parameters given, then return refference of window.
+	CREATES THE WINDOW w/ the parameters given, then return refference of window.
 
 	Parameters:
 	1st = Title of window, convert string to const char*, () are needed as it's a function.
@@ -46,7 +46,7 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
 
 	/*
 	Again just an error check, if so, print to console and stop the function.
-	!window is basiclaly just [window == nullptr], and it works with pointers.
+	!window is basiclaly just [window == nullptr], [!] works with pointers.
 	*/
 	if (!window)
 	{
@@ -116,7 +116,7 @@ void Window::SetPreAttributes()
 	1st = Removes deprecated functions. Set's profile mask to core profile.
 	2nd and 3rd = Sets OpenGL version (v4.5).
 	4th = Enables double buffer.
-	5th = Synchronizes swap interval to be euqal w/ vertical retrace of the screen.
+	5th = Synchronizes swap interval to be euqal w/ vertical retrace of the screen (VSYNC).
 	6th = Sets Glew experimental to true, part of Glew Lib, must be set to true before 
 	initalizing glew, or errors will occur.
 	*/
