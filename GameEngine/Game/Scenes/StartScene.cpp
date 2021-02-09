@@ -20,6 +20,15 @@ bool StartScene::OnCreate()
 
 void StartScene::Update(const float deltaTime_)
 {
+
+	/*
+	Simple scene switcher, once the key (1) is pressed,
+	set the current scene to 1.
+
+	This is done by using SDL's PollEvent.
+
+	This was also done in scott's SDL engine.
+	*/
 	if (SDL_PollEvent(&event)) {
 		switch (event.key.keysym.sym) {
 		case SDLK_1:
