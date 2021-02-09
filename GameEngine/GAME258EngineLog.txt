@@ -1,1 +1,4 @@
-[INFO]: Everything worked in: CoreEngine.cpp on line: 97
+[INFO]: OpenGL Version: 4.5.0 NVIDIA 461.09 in: Window.cpp on line: 77
+[INFO]: start scene in: StartScene.cpp on line: 16
+[INFO]: Everything worked in: CoreEngine.cpp on line: 100
+[INFO]: Game Scene created successfully in: GameScene.h on line: 16

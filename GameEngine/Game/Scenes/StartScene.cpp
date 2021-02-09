@@ -20,6 +20,15 @@ bool StartScene::OnCreate()
 
 void StartScene::Update(const float deltaTime_)
 {
+	if (SDL_PollEvent(&event)) {
+		switch (event.key.keysym.sym) {
+		case SDLK_1:
+			CoreEngine::GetInstance()->SetCurrentScene(1);
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void StartScene::Render()

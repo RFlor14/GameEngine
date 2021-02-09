@@ -7,7 +7,7 @@ class GameScene : public Scene
 {
 public:
 	GameScene();
-	~GameScene();
+	virtual ~GameScene();
 
 	bool OnCreate() override;
 	void Update(const float deltaTime_) override;
