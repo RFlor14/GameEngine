@@ -4,10 +4,10 @@
 /*
 [../] allows you to jump out of the current folder and go
 somewhere else, in this case the parent folder.
-
-
 */
 #include "../Engine/Core/CoreEngine.h"
+#include "Scenes/StartScene.h"
+#include "Scenes/GameScene.h"
 
 // Publicly inherting GameInterface
 class Game1 : public GameInterface
@@ -23,6 +23,11 @@ public:
 	bool OnCreate() override;
 	void Update(const float deltaTime_) override;
 	void Render() override;
+
+private:
+	int currentSceneNum;
+	Scene* currentScene;
+	void BuildScene();
 };
 
 

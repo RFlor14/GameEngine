@@ -7,6 +7,7 @@
 #include "Timer.h"
 #include "Debug.h" // Added Debug
 #include "GameInterface.h"
+#include "Scene.h"
 
 class CoreEngine
 {
@@ -29,9 +30,13 @@ public:
 
 	bool OnCreate(std::string name_, int width_, int height_); // Same parameter as window
 	void Run(); // Doesn't return anything.
-	bool GetIsRunning(); // Returns the value of isRunning variable.
+	void Exit();
+
+	bool GetIsRunning() const; // Returns the value of isRunning variable.
+	int GetCurrentScene() const; // scene number holder
 
 	void SetGameInterface(GameInterface* gameInterface_);
+	void SetCurrentScene(int sceneNum_); // takes in an int for this new scene number
 
 
 private:
@@ -65,6 +70,8 @@ private:
 	unsigned int fps;
 
 	GameInterface* gameInterface; // Creates game interface pointer.
+
+	int currentSceneNum; // integer to represent the scene number
 };
 
 #endif // !COREENGINE_H

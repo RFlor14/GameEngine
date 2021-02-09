@@ -124,7 +124,6 @@
   <ItemGroup>
     <ClCompile Include="Engine\Core\Debug.cpp" />
     <ClCompile Include="Engine\Core\CoreEngine.cpp" />
-    <ClCompile Include="Engine\Core\GameInterface.cpp" />
     <ClCompile Include="Game\Scenes\GameScene.cpp" />
     <ClCompile Include="Game\Game1.cpp" />
     <ClCompile Include="Main.cpp" />

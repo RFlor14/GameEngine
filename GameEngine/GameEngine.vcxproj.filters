@@ -30,9 +30,6 @@
     <ClCompile Include="Engine\Core\Debug.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Core\GameInterface.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Game1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

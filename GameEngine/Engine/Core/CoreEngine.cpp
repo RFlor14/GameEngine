@@ -17,8 +17,10 @@ Makes sure that the engine is(NOT)Running.
 Sets fps to 60.
 
 Sets gameInterface to null to make sure theres no junk data.
+
+Sets current scene number to 0.
 */
-CoreEngine::CoreEngine() : window(nullptr), isRunning(false), fps(60), gameInterface(nullptr) {} 
+CoreEngine::CoreEngine() : window(nullptr), isRunning(false), fps(60), gameInterface(nullptr), currentSceneNum(0) {} 
 
 CoreEngine::~CoreEngine() {}
 
@@ -147,15 +149,31 @@ void CoreEngine::Run()
 
 }
 
-bool CoreEngine::GetIsRunning()
+void CoreEngine::Exit()
+{
+	// Any time the engine is inside the while loop, it hops out of it, and starts shutting down everything.
+	isRunning = false; 
+}
+
+bool CoreEngine::GetIsRunning() const
 {
 	return isRunning;
+}
+
+int CoreEngine::GetCurrentScene() const
+{
+	return currentSceneNum;
 }
 
 void CoreEngine::SetGameInterface(GameInterface * gameInterface_)
 {
 	// sets gameInterface var equal to the pointer that gets passed in as a param to this function
 	gameInterface = gameInterface_; 
+}
+
+void CoreEngine::SetCurrentScene(int sceneNum_)
+{
+	currentSceneNum = sceneNum_;
 }
 
 void CoreEngine::Update(const float deltaTime_) 
