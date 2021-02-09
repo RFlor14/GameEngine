@@ -5,6 +5,7 @@
 #include <memory> // Allows the acess of smart pointers.
 #include "Window.h"
 #include "Timer.h"
+#include "Debug.h" // Added Debug
 
 class CoreEngine
 {

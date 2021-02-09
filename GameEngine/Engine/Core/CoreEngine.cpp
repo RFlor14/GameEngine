@@ -42,6 +42,12 @@ CoreEngine * CoreEngine::GetInstance()
 // Has the same parameters as Windows onCreate since it does call that function.
 bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 {
+	/*
+	It's static so, call Debug class, then scope resolution operator to OnCreate,
+	which gives us acess to all of the public functions in it.
+	*/
+	Debug::OnCreate(); 
+
 	//Before calling onCreate, makes sure that we are creating and initializing the window pointer.
 	window = new Window();
 
@@ -61,6 +67,14 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 		OnDestroy();
 		return isRunning = false;
 	}
+
+	/*
+	Checks if debug class works.
+
+	Reason why we're doing "x.cpp" is so that, it doesnt print out the full file path,
+	easier to see which specific file has the problem.
+	*/ 
+	Debug::Info("Everything worked", "CoreEngine.cpp", __LINE__); 
 
 	// Starts the timer, must be done before setting isRunning to true.
 	timer.Start();
