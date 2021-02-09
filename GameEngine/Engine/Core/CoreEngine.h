@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Timer.h"
 #include "Debug.h" // Added Debug
+#include "GameInterface.h"
 
 class CoreEngine
 {
@@ -29,6 +30,9 @@ public:
 	bool OnCreate(std::string name_, int width_, int height_); // Same parameter as window
 	void Run(); // Doesn't return anything.
 	bool GetIsRunning(); // Returns the value of isRunning variable.
+
+	void SetGameInterface(GameInterface* gameInterface_);
+
 
 private:
 
@@ -59,6 +63,8 @@ private:
 
 	Timer timer; // Timer instance
 	unsigned int fps;
+
+	GameInterface* gameInterface; // Creates game interface pointer.
 };
 
 #endif // !COREENGINE_H

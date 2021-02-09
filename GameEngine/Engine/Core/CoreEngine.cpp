@@ -14,9 +14,11 @@ Sets default value for window.
 
 Makes sure that the engine is(NOT)Running.
 
-Set's fps to 60.
+Sets fps to 60.
+
+Sets gameInterface to null to make sure theres no junk data.
 */
-CoreEngine::CoreEngine() : window(nullptr), isRunning(false), fps(60) {} 
+CoreEngine::CoreEngine() : window(nullptr), isRunning(false), fps(60), gameInterface(nullptr) {} 
 
 CoreEngine::~CoreEngine() {}
 
@@ -67,6 +69,24 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 		OnDestroy();
 		return isRunning = false;
 	}
+
+	/*
+	Checks if gameInterface exists.
+
+	Inner if statement, is the same as the windows, checks if it works,
+	if not, print out to console, clean up, then set isRunning to false.
+	*/
+	if (gameInterface)
+	{
+		if (!gameInterface->onCreate()) 
+		{
+			std::cout << "Game failed to initialize" << std::endl;
+			OnDestroy();
+			return isRunning = false;
+		}
+	}
+
+
 
 	/*
 	Checks if debug class works.
@@ -132,9 +152,26 @@ bool CoreEngine::GetIsRunning()
 	return isRunning;
 }
 
+void CoreEngine::SetGameInterface(GameInterface * gameInterface_)
+{
+	// sets gameInterface var equal to the pointer that gets passed in as a param to this function
+	gameInterface = gameInterface_; 
+}
+
 void CoreEngine::Update(const float deltaTime_) 
 {
-	std::cout << deltaTime_ << std::endl; // verifies if timer is working properly.
+	/*
+	Checks to see if gameInterface variable exists.
+
+	If true, call update function on game interface.
+	*/
+	if (gameInterface) {
+		gameInterface->Update(deltaTime_);
+		std::cout << deltaTime_ << std::endl; // verifies if timer is working properly.
+	}
+
+
+	
 }
 
 void CoreEngine::Render()
@@ -143,6 +180,12 @@ void CoreEngine::Render()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Tell's OpenGL what color should be used when cleared. (R,G,B,A)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Tell's OpenGL to clear Color and Depth buffer bit.
 
+	// Calls in game's render function, if gameInterface exists
+	if (gameInterface)
+	{
+		gameInterface->Render();
+	}
+
 	//CALL GAME RENDER
 	SDL_GL_SwapWindow(window->GetWindow());
 }
@@ -150,8 +193,19 @@ void CoreEngine::Render()
 // Deletes window variable
 void CoreEngine::OnDestroy()
 {
-	delete window; // cleans up the pointer
-	window = nullptr; // then set it to nullptr
+	/*
+	Cleans up the pointer.
+
+	Set it to nullptr.
+
+	Note: Always destroy from the inside out.
+	*/
+	delete gameInterface;
+	gameInterface = nullptr;
+
+	delete window;
+	window = nullptr; 
+
 	SDL_Quit(); // Quits SDL, when destroying an engine, close entire project.
 	exit(0); // Exits whole program w/ exit code 0.
 }
