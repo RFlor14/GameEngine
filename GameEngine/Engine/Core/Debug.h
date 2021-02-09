@@ -78,7 +78,7 @@ private:
 
 	This private log function will have the functionality of writing to the file.
 	*/
-	static void Log(const std::string& message_, const std::string& fileName_, const int line_);
+	static void Log(const MessageType type_, const std::string& message_, const std::string& fileName_, const int line_);
 	static MessageType currentSev;
 
 	/*
