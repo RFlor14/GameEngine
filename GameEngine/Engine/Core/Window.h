@@ -6,6 +6,7 @@
 #include <SDL_opengl.h>
 #include <string> // allows us to use type string.
 #include <iostream> // allows us to use [std].
+#include "Debug.h"
 
 class Window 
 {

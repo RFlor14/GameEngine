@@ -30,7 +30,9 @@ bool Game1::OnCreate()
 		return currentScene->OnCreate(); 
 	}
 
-	std::cout << "Engine's scene is not initialized to 0" << std::endl;
+	Debug::Warning("Engine's scene is not initialized to 0", "Game1.cpp", __LINE__);
+
+
 	return false;
 }
 

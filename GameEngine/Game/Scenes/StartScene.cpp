@@ -13,7 +13,8 @@ StartScene::~StartScene()
 
 bool StartScene::OnCreate()
 {
-	std::cout << "start scene" << std::endl;
+	Debug::Info("start scene", "StartScene.cpp", __LINE__);
+
 	return true; // have it return to true so the program can run
 }
 
