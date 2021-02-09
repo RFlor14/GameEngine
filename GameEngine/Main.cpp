@@ -1,8 +1,16 @@
 #include "Engine/Core/CoreEngine.h" // self explanatory, allows acess of entire Engine class
+#include "Game/Game1.h"
 
 // Main Is now very basic, and will not be changed anymore in the forseeable future.
 int main(int argc, char* argv[]) 
 {
+	/*
+	Set gameinterface to be a new pointer/object of this Game1 class.
+
+	Call this before OnCreate since OnCreate calls the game interface's OnCreate.
+
+	*/ 
+	CoreEngine::GetInstance()->SetGameInterface(new Game1);
 
 	/*
 	Sets name, width, and height of the window, seen in the parameters.

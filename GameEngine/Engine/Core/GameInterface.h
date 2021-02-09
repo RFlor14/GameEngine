@@ -16,7 +16,7 @@ public:
 	Meaning the definition is not made here, and the child class has to define
 	all three of these functions.
 	*/ 
-	virtual bool onCreate() = 0; 
+	virtual bool OnCreate() = 0; 
 	virtual void Update(const float deltaTime_) = 0;
 	virtual void Render() = 0;
 };

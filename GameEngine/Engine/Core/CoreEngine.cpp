@@ -78,7 +78,7 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 	*/
 	if (gameInterface)
 	{
-		if (!gameInterface->onCreate()) 
+		if (!gameInterface->OnCreate()) 
 		{
 			std::cout << "Game failed to initialize" << std::endl;
 			OnDestroy();
