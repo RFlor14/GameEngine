@@ -36,16 +36,21 @@ bool Game1::OnCreate()
 	return false;
 }
 
+
 void Game1::Update(const float deltaTime_)
 {
 	/*
 	Makes sure that the game's current scene number matches the engine's
 	current scene number.
+
+	If the current scene is not equal to the Engine's GetCurrentScene, 
+	allow the ability to build the new scene.
 	*/
 	if (currentSceneNum != CoreEngine::GetInstance()->GetCurrentScene())
 	{
 		BuildScene();
 	}
+
 	currentScene->Update(deltaTime_); // regardless of the outcome, update the current scene.
 }
 
@@ -54,6 +59,9 @@ void Game1::Render()
 	currentScene->Render(); // Renders the current scene
 }
 
+
+
+/* HANDLES SCENE SWITCHING */
 void Game1::BuildScene()
 {
 	/*
@@ -85,6 +93,7 @@ void Game1::BuildScene()
 		currentScene = new StartScene();
 		break;
 	}
+
 
 	/*
 	Set game's current scene number equal to the engines current scene number.
