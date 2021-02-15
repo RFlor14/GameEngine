@@ -37,7 +37,7 @@ Model::~Model()
 		}
 
 		// Now that every object is null, clear this meshes vector.
-		meshes.clear;
+		meshes.clear();
 	}
 }
 

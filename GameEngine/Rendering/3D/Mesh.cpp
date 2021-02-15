@@ -18,10 +18,6 @@ Mesh::Mesh(std::vector<Vertex>& vertexList_) : VAO(0), VBO(0), vertexList(std::v
 	that we get passed in as a parameter.
 	*/
 	vertexList = vertexList_;
-
-	/*
-	
-	*/
 	GenerateBuffers();
 }
 
