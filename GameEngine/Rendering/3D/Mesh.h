@@ -52,7 +52,18 @@ private:
 
 	void GenerateBuffers(); // Sets up VAO and VBO.
 
-	//OpenGL unsigned int, that represents the VAO and VBO. 
+	/*
+	OpenGL unsigned int, that represents the VAO and VBO. 
+
+	Creating as [GLuint] is like creating them using a pointer.
+	It acts as the index value for what you've created.
+
+	[VAO] = Vertex Array Object
+	Object that states to the GPU how we store our vertex data.
+
+	[VBO] = Vertex Buffer Objects
+	Object buffer that provides the methods to push data to the GPU.
+	*/
 	GLuint VAO, VBO; 
 
 	/*
