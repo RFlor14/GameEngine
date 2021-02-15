@@ -6,8 +6,21 @@
 class GameObject
 {
 public:
-	GameObject();
+
+	/*
+	Important to use [star notation] here because it gives us
+	the ability to create a game object, or an empty game object.
+
+	If we want an empty game object, we just pass in nullptr.
+	*/
+	GameObject(Model* model_);
 	~GameObject();
+
+	void Render();
+private:
+
+	// Holds a refferrence to its model.
+	Model* model;
 };
 
 #endif // !GAMEOBJECT_H
