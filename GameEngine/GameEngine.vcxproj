@@ -150,6 +150,10 @@
     <ClInclude Include="Game\Scenes\StartScene.h" />
     <ClInclude Include="Engine\Graphics\ShaderHandler.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Shaders\ColourFragmentShader.glsl" />
+    <None Include="Engine\Shaders\ColourVertexShader.glsl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

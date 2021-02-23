@@ -93,4 +93,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Shaders\ColourVertexShader.glsl" />
+    <None Include="Engine\Shaders\ColourFragmentShader.glsl" />
+  </ItemGroup>
 </Project>
