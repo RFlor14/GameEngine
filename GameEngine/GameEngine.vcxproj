@@ -133,6 +133,7 @@
     <ClCompile Include="Engine\Core\Window.cpp" />
     <ClCompile Include="Engine\Core\Timer.cpp" />
     <ClCompile Include="Game\Scenes\StartScene.cpp" />
+    <ClCompile Include="Engine\Graphics\ShaderHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Core\Debug.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Game\Game1.h" />
     <ClInclude Include="Engine\Core\Scene.h" />
     <ClInclude Include="Game\Scenes\StartScene.h" />
+    <ClInclude Include="Engine\Graphics\ShaderHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
