@@ -41,22 +41,32 @@ bool GameScene::OnCreate()
 	std::vector<Vertex> vertexList;
 	vertexList.reserve(6);
 	v.position = glm::vec3(0.25f, 0.25f, 0.0f);
+	v.colour = glm::vec3(1.0f, 0.0f, 0.0f);
 	vertexList.push_back(v);
+
 	v.position = glm::vec3(-0.25f, -0.25f, 0.0f);
+	v.colour = glm::vec3(0.0f, 1.0f, 0.0f);
 	vertexList.push_back(v);
+
 	v.position = glm::vec3(0.25f, -0.25f, 0.0f);
+	v.colour = glm::vec3(0.0f, 0.0f, 1.0f);
 	vertexList.push_back(v);
 
 	// Triangle 2
 	v.position = glm::vec3(-0.25f, -0.25f, 0.0f);
-	vertexList.push_back(v);
-	v.position = glm::vec3(0.25f, 0.25f, 0.0f);
-	vertexList.push_back(v);
-	v.position = glm::vec3(-0.25f, 0.25f, 0.0f);
+	v.colour = glm::vec3(0.0f, 1.0f, 0.0f);
 	vertexList.push_back(v);
 
-	// Creates the model
-	Model* model = new Model();
+	v.position = glm::vec3(0.25f, 0.25f, 0.0f);
+	v.colour = glm::vec3(1.0f, 0.0f, 0.0f);
+	vertexList.push_back(v);
+
+	v.position = glm::vec3(-0.25f, 0.25f, 0.0f);
+	v.colour = glm::vec3(0.0f, 0.0f, 1.0f);
+	vertexList.push_back(v);
+
+	// Creates the model, pass in the GLuint for the shader program
+	Model* model = new Model(ShaderHandler::GetInstance()->GetShader("colourShader"));
 
 	// Set the model w/ a mesh
 	model->AddMesh(new Mesh(vertexList));

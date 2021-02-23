@@ -1,7 +1,11 @@
 #include "Model.h"
 
 // Constructor sets up the meshes vector to be an empty vector.
-Model::Model() : meshes(std::vector<Mesh*>()){}
+Model::Model(GLuint shaderProgram_) : meshes(std::vector<Mesh*>()), shaderProgram(0)
+{
+	// set shader program var to what we passed in as a param.
+	shaderProgram = shaderProgram_;
+}
 
 /*
  Where the list of pointers comes into play.
@@ -43,6 +47,14 @@ Model::~Model()
 
 void Model::Render()
 {
+	/*
+	[glUseprogram] = tells OpenGL to switch the shader program to
+	a specific shader program that we pass it in.
+
+	I.e. this model uses this specific shader program.
+	*/
+	glUseProgram(shaderProgram);
+
 	/*
 	For each mesh inside of the meshes list, call render.
 

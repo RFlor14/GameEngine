@@ -6,7 +6,11 @@
 class Model
 {
 public:
-	Model();
+	/*
+	Makes sure each model has the ability to secify what 
+	shader program to sue to render itself.
+	*/ 
+	Model(GLuint shaderProgram_);
 	~Model();
 
 	void Render();
@@ -18,6 +22,9 @@ private:
 	
 	// Holds a collection of mesh pointers.
 	std::vector<Mesh*> meshes;
+
+	// Saves the shader program
+	GLuint shaderProgram;
 };
 #endif // !MODEL_H
 

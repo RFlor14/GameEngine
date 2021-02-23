@@ -72,6 +72,12 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 		return isRunning = false;
 	}
 
+	// SETTING UP SHADER
+	ShaderHandler::GetInstance()->CreateProgram("colourShader",
+		"Engine/Shaders/ColourVertexShader.glsl",
+		"Engine/Shaders/ColourFragmentShader.glsl");
+
+
 	/*
 	Checks if gameInterface exists.
 
@@ -212,6 +218,9 @@ void CoreEngine::Render()
 // Deletes window variable
 void CoreEngine::OnDestroy()
 {
+	// call in shader handler destroyer
+	ShaderHandler::GetInstance()->OnDestroy();
+
 	/*
 	Cleans up the pointer.
 
