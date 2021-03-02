@@ -10,7 +10,7 @@ Sets [vertexList] to equal an empty vector. When creating an empty vector it's
 vector name equal to the signature of the vetor followed by empty brackets.
 */ 
 Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_) : VAO(0), VBO(0), 
-vertexList(std::vector<Vertex>()), shaderProgram(0)
+vertexList(std::vector<Vertex>()), shaderProgram(0), modelLoc(0), viewLoc(0), projectionLoc(0)
 {
 	/*
 	MUST happen before [GenerateBuffers].
@@ -42,7 +42,7 @@ Mesh::~Mesh()
 	vertexList.clear(); 
 }
 
-void Mesh::Render(glm::mat4 transform_)
+void Mesh::Render(Camera* camera_,  glm::mat4 transform_)
 {
 	
 	//First thing to always do w/ render is to bind the class' [VAO].
@@ -61,8 +61,12 @@ void Mesh::Render(glm::mat4 transform_)
 	 3) transpose matreix? no
 	 4) actual pointer to the matrix
 
+	 [view] pass in getview param
+	 [project] pass in perpspective param since we're doing 3D
 	*/
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetView()));
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetPerspective()));
 
 	/*
 	Call to draw for OpenGL, in this case we're drawing arrays
@@ -179,4 +183,6 @@ void Mesh::GenerateBuffers()
 
 	*/
 	modelLoc = glGetUniformLocation(shaderProgram, "model");
+	viewLoc = glGetUniformLocation(shaderProgram, "view");
+	projectionLoc = glGetUniformLocation(shaderProgram, "projection");
 }

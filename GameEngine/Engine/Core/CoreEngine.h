@@ -13,6 +13,8 @@
 
 #include "../Graphics/ShaderHandler.h"
 
+#include "Camera.h"
+
 class CoreEngine
 {
 public:
@@ -42,9 +44,11 @@ public:
 	// For "Camera"
 	float GetScreenWidth() const;
 	float GetScreenHeight() const;
+	Camera* GetCamera() const;
 
 	void SetGameInterface(GameInterface* gameInterface_);
 	void SetCurrentScene(int sceneNum_); // takes in an int for this new scene number
+	void SetCamera(Camera* camera_);
 
 
 private:
@@ -80,6 +84,8 @@ private:
 	GameInterface* gameInterface; // Creates game interface pointer.
 
 	int currentSceneNum; // integer to represent the scene number
+
+	Camera* camera;
 };
 
 #endif // !COREENGINE_H

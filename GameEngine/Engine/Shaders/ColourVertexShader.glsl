@@ -21,6 +21,8 @@ out vec2 TexCoords;
 out vec3 Colour; // currently we're just using this
 
 uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
 void main()
 {
@@ -28,7 +30,7 @@ void main()
 	[gl_Position] = keyword specific to vertex shaders,
 	this tells OpenGL what the vertex position should be.
 	*/
-	gl_Position = model * vec4(position, 1.0f);
+	gl_Position = projection * view * model * vec4(position, 1.0f);
 
 	// sets out colour to in colour
 	Colour = colour;

@@ -22,7 +22,7 @@ public:
 
 	~Model();
 
-	void Render();
+	void Render(Camera* camera_);
 	
 	// Adds a mesh to this model.
 	void AddMesh(Mesh* mesh_);

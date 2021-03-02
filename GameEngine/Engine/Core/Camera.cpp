@@ -53,14 +53,14 @@ Camera::~Camera(){}
 void Camera::SetPosition(glm::vec3 position_)
 {
 	position = position_;
-	UpdateCameraVectors;
+	UpdateCameraVectors();
 }
 
 void Camera::SetRotation(float yaw_, float pitch_)
 {
 	yaw = yaw_;
 	pitch = pitch_;
-	UpdateCameraVectors;
+	UpdateCameraVectors();
 }
 
 glm::mat4 Camera::GetView() const

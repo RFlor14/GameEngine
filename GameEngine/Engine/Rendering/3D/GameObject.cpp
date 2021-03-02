@@ -29,7 +29,7 @@ GameObject::~GameObject()
 	model = nullptr;
 }
 
-void GameObject::Render()
+void GameObject::Render(Camera* camera_)
 {
 	/*
 	 Checks to see if there'sa model associated with it.
@@ -38,6 +38,6 @@ void GameObject::Render()
 	*/
 	if (model)
 	{
-		model->Render();
+		model->Render(camera_);
 	}
 }

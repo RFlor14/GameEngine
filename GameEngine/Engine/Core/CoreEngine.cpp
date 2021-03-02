@@ -175,7 +175,6 @@ int CoreEngine::GetCurrentScene() const
 /*
  [static_cast] To getWidth and Height from the window class return an integer
  but we want a float.
-
 */
 float CoreEngine::GetScreenWidth() const
 {
@@ -187,6 +186,11 @@ float CoreEngine::GetScreenHeight() const
 	return static_cast<float>(window->GetHeight());
 }
 
+Camera* CoreEngine::GetCamera() const
+{
+	return camera;
+}
+
 void CoreEngine::SetGameInterface(GameInterface * gameInterface_)
 {
 	// sets gameInterface var equal to the pointer that gets passed in as a param to this function
@@ -196,6 +200,11 @@ void CoreEngine::SetGameInterface(GameInterface * gameInterface_)
 void CoreEngine::SetCurrentScene(int sceneNum_)
 {
 	currentSceneNum = sceneNum_;
+}
+
+void CoreEngine::SetCamera(Camera* camera_)
+{
+	camera = camera_;
 }
 
 void CoreEngine::Update(const float deltaTime_) 
@@ -245,6 +254,9 @@ void CoreEngine::OnDestroy()
 	*/
 	delete gameInterface;
 	gameInterface = nullptr;
+
+	delete camera;
+	camera = nullptr;
 
 	delete window;
 	window = nullptr; 
