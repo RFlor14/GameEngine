@@ -9,7 +9,8 @@ lowest it can go is 0.
 Sets [vertexList] to equal an empty vector. When creating an empty vector it's
 vector name equal to the signature of the vetor followed by empty brackets.
 */ 
-Mesh::Mesh(std::vector<Vertex>& vertexList_) : VAO(0), VBO(0), vertexList(std::vector<Vertex>())
+Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_) : VAO(0), VBO(0), 
+vertexList(std::vector<Vertex>()), shaderProgram(0)
 {
 	/*
 	MUST happen before [GenerateBuffers].
@@ -18,6 +19,7 @@ Mesh::Mesh(std::vector<Vertex>& vertexList_) : VAO(0), VBO(0), vertexList(std::v
 	that we get passed in as a parameter.
 	*/
 	vertexList = vertexList_;
+	shaderProgram = shaderProgram_;
 	GenerateBuffers();
 }
 
@@ -40,11 +42,27 @@ Mesh::~Mesh()
 	vertexList.clear(); 
 }
 
-void Mesh::Render()
+void Mesh::Render(glm::mat4 transform_)
 {
 	
 	//First thing to always do w/ render is to bind the class' [VAO].
 	glBindVertexArray(VAO);
+
+	glEnable(GL_DEPTH_TEST); // Enables depth test, when objects are rendered, Z value is taken into account.
+
+	/*
+	 [glUniformMatrix4fv] Set the model matrix variable (set a 4x4 matrix var).
+	 - [f] setting up float
+	 - [v] setting it by a pointer
+
+	 Parameters:
+	 1) actual location of the uniform we want to set
+	 2) what is the count of how many uniforms you're setting. (1, since one matrix)
+	 3) transpose matreix? no
+	 4) actual pointer to the matrix
+
+	*/
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
 
 	/*
 	Call to draw for OpenGL, in this case we're drawing arrays
@@ -140,13 +158,25 @@ void Mesh::GenerateBuffers()
 		(GLvoid*)offsetof(Vertex, colour));
 
 	/*
-	Binds vertex array and the buffer to 0.
+	 Binds vertex array and the buffer to 0.
 
-	Essentially, we're closing the doors. It also
-	ensures that no one can mess with the 
-	[VBO] and [VAO] data.
+	 Essentially, we're closing the doors. It also
+	 ensures that no one can mess with the 
+	 [VBO] and [VAO] data.
 	*/
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+	/*
+	 Note: 
+	 The location will never change throughout the programs lifetime.
+	 The string you pass in [model] has to match exactly to what
+	 is in the shader.
+
+	 1) Get the location for the uniform when generating the buffers.
+	 2) save it to our variable.
+	 3) use that variable when we want to set the unform's value.
+
+	*/
+	modelLoc = glGetUniformLocation(shaderProgram, "model");
 }

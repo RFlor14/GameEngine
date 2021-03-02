@@ -8,6 +8,8 @@ This is kind of the same as the Mesh.cpp's getAttrib.
 
 The [order and data] must be the same as the attributes enabled in
 the generate buffers function.
+
+It deals with setting the position of the vertex.
 */
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
@@ -18,13 +20,15 @@ out vec3 Normal;
 out vec2 TexCoords;
 out vec3 Colour; // currently we're just using this
 
+uniform mat4 model;
+
 void main()
 {
 	/*
 	[gl_Position] = keyword specific to vertex shaders,
 	this tells OpenGL what the vertex position should be.
 	*/
-	gl_Position = vec4(position, 1.0f);
+	gl_Position = model * vec4(position, 1.0f);
 
 	// sets out colour to in colour
 	Colour = colour;

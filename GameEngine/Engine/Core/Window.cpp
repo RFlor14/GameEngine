@@ -69,9 +69,6 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
 		Debug::FatalError("Failed to initialize GLEW", "in Window.cpp", __LINE__);
 		return false;
 	}
-
-
-	glEnable(GL_DEPTH_TEST); // Enables depth test, when objects are rendered, Z value is taken into account.
 	
 	// Prints out OpenGL version.
 	Debug::Info("OpenGL Version: " + std::string((char*)glGetString(GL_VERSION)), "Window.cpp", __LINE__);

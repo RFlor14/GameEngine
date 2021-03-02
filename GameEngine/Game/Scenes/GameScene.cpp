@@ -7,6 +7,8 @@ GameScene::GameScene() : shape(nullptr){}
 
 GameScene::~GameScene()
 {
+	model = nullptr;
+
 	// As always after creating a ptr, delete it.
 	delete shape;
 	shape = nullptr;
@@ -66,10 +68,13 @@ bool GameScene::OnCreate()
 	vertexList.push_back(v);
 
 	// Creates the model, pass in the GLuint for the shader program
-	Model* model = new Model(ShaderHandler::GetInstance()->GetShader("colourShader"));
+	model = new Model(ShaderHandler::GetInstance()->GetShader("colourShader"));
 
 	// Set the model w/ a mesh
-	model->AddMesh(new Mesh(vertexList));
+	model->AddMesh(new Mesh(vertexList, ShaderHandler::GetInstance()->GetShader("colourShader")));
+
+	// test transform
+	//model->SetScale(glm::vec3(0.5f));
 
 	// Create the game object
 	shape = new GameObject(model);
@@ -77,7 +82,16 @@ bool GameScene::OnCreate()
 	return true;
 }
 
-void GameScene::Update(const float deltaTime_){}
+void GameScene::Update(const float deltaTime_)
+{
+	/*
+	 Changes the models angle continously
+
+	 Get angle of the model is equal to what we're passing in
+	 to set the model's angle + value.
+	*/
+	model->SetAngle(model->GetAngle() + 0.005f);
+}
 
 void GameScene::Render()
 {

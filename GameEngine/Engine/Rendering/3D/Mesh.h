@@ -4,6 +4,7 @@
 #include <glew.h> // Acess to all OpenGL API
 #include <vector> // Dynamically sized Array, it essentially goes into memory
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp> // Allows to get the pointer of a specific glm variable type.
 
 /*
 [Non interleaved] - struct is created for all of the vertex attributes.
@@ -43,10 +44,10 @@ public:
 	Passing it in by [refferrence] is just passing the adress of
 	the vector. 
 	*/
-	Mesh(std::vector<Vertex>& vertexList_);
+	Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_);
 	~Mesh();
 
-	void Render();
+	void Render(glm::mat4 transform_);
 
 private:
 
@@ -71,6 +72,10 @@ private:
 	to our class' vector.
 	*/
 	std::vector<Vertex> vertexList;
+
+	GLuint shaderProgram;
+	GLuint modelLoc; // uniform's location variable
+
 };
 #endif // !MESH_H
 
