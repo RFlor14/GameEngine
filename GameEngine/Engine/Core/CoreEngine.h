@@ -39,6 +39,10 @@ public:
 	bool GetIsRunning() const; // Returns the value of isRunning variable.
 	int GetCurrentScene() const; // scene number holder
 
+	// For "Camera"
+	float GetScreenWidth() const;
+	float GetScreenHeight() const;
+
 	void SetGameInterface(GameInterface* gameInterface_);
 	void SetCurrentScene(int sceneNum_); // takes in an int for this new scene number
 

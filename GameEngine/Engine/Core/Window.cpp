@@ -73,6 +73,9 @@ bool Window::OnCreate(std::string name_, int width_, int height_)
 	// Prints out OpenGL version.
 	Debug::Info("OpenGL Version: " + std::string((char*)glGetString(GL_VERSION)), "Window.cpp", __LINE__);
 
+	// viewport transform takes us from clip space to screen space.
+	glViewport(0, 0, width, height);
+
 	/*
 	Everything worked properly.
 	TIP: always have a return statement if you have a function that returns a type of data (bool, int, float)
