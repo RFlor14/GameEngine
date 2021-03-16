@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 #include <SDL.h>
+#include <SDL_image.h>
 #include "../Core/Debug.h"
 #include <glew.h>
-
 
 /*
  Get information about texture that is needed to get track of.
@@ -52,12 +52,10 @@ private:
 
 	TextureHandler();
 	~TextureHandler();
-
 	
 	// Singleton is used, so there's a [unique_ptr] & [default_delete]
 	static std::unique_ptr<TextureHandler> textureInstance;
 	friend std::default_delete<TextureHandler>;
-
 
 	static std::vector<Texture*> textures;
 
