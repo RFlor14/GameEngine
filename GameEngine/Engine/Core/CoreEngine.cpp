@@ -244,6 +244,7 @@ void CoreEngine::OnDestroy()
 {
 	// call in shader handler destroyer
 	ShaderHandler::GetInstance()->OnDestroy();
+	TextureHandler::GetInstance()->OnDestroy();
 
 	/*
 	Cleans up the pointer.

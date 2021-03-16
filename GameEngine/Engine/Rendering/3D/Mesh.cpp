@@ -9,8 +9,9 @@ lowest it can go is 0.
 Sets [vertexList] to equal an empty vector. When creating an empty vector it's
 vector name equal to the signature of the vetor followed by empty brackets.
 */ 
-Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_) : VAO(0), VBO(0), 
-vertexList(std::vector<Vertex>()), shaderProgram(0), modelLoc(0), viewLoc(0), projectionLoc(0)
+Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_) : VAO(0), VBO(0), 
+vertexList(std::vector<Vertex>()), shaderProgram(0), textureID(0), modelLoc(0), viewLoc(0), 
+projectionLoc(0), textureLoc(0)
 {
 	/*
 	MUST happen before [GenerateBuffers].
@@ -19,6 +20,7 @@ vertexList(std::vector<Vertex>()), shaderProgram(0), modelLoc(0), viewLoc(0), pr
 	that we get passed in as a parameter.
 	*/
 	vertexList = vertexList_;
+	textureID = textureID_;
 	shaderProgram = shaderProgram_;
 	GenerateBuffers();
 }
@@ -44,11 +46,10 @@ Mesh::~Mesh()
 
 void Mesh::Render(Camera* camera_,  glm::mat4 transform_)
 {
-	
-	//First thing to always do w/ render is to bind the class' [VAO].
-	glBindVertexArray(VAO);
-
-	glEnable(GL_DEPTH_TEST); // Enables depth test, when objects are rendered, Z value is taken into account.
+	// Render everything needed for the texture first.
+	glUniform1i(textureLoc, 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 
 	/*
 	 [glUniformMatrix4fv] Set the model matrix variable (set a 4x4 matrix var).
@@ -64,9 +65,15 @@ void Mesh::Render(Camera* camera_,  glm::mat4 transform_)
 	 [view] pass in getview param
 	 [project] pass in perpspective param since we're doing 3D
 	*/
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetView()));
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetPerspective()));
+
+	//First thing to always do w/ render is to bind the class' [VAO].
+	glBindVertexArray(VAO);
+
+	glEnable(GL_DEPTH_TEST); // Enables depth test, when objects are rendered, Z value is taken into account.
+
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
 
 	/*
 	Call to draw for OpenGL, in this case we're drawing arrays
@@ -185,4 +192,5 @@ void Mesh::GenerateBuffers()
 	modelLoc = glGetUniformLocation(shaderProgram, "model");
 	viewLoc = glGetUniformLocation(shaderProgram, "view");
 	projectionLoc = glGetUniformLocation(shaderProgram, "projection");
+	textureLoc = glGetUniformLocation(shaderProgram, "inputTexture");
 }

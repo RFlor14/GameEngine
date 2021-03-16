@@ -8,6 +8,15 @@
 
 #include "../../Core/Camera.h"
 
+struct Vertex 
+{
+	glm::vec3 position;
+	glm::vec3 normal;
+	glm::vec2 textureCoordinates;
+	glm::vec3 colour;
+};
+
+
 /*
 [Non interleaved] - struct is created for all of the vertex attributes.
 
@@ -27,7 +36,6 @@ struct Vertex {
 	glm::vec3 colour;
 };
 
-
 class Mesh
 {
 public:
@@ -46,7 +54,7 @@ public:
 	Passing it in by [refferrence] is just passing the adress of
 	the vector. 
 	*/
-	Mesh(std::vector<Vertex>& vertexList_, GLuint shaderProgram_);
+	Mesh(std::vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_);
 	~Mesh();
 
 	void Render(Camera* camera_, glm::mat4 transform_);
@@ -78,6 +86,8 @@ private:
 	GLuint shaderProgram;
 	GLuint modelLoc, viewLoc, projectionLoc; // uniform, view, projection's location variable
 
+	GLuint textureID;
+	GLuint modelLoc, viewLoc, projectionLoc, textureLoc;
 };
 #endif // !MESH_H
 
