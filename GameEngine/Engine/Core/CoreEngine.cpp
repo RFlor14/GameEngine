@@ -216,7 +216,7 @@ void CoreEngine::Update(const float deltaTime_)
 	*/
 	if (gameInterface) {
 		gameInterface->Update(deltaTime_);
-		std::cout << deltaTime_ << std::endl; // verifies if timer is working properly.
+		//std::cout << deltaTime_ << std::endl; // verifies if timer is working properly.
 	}
 
 

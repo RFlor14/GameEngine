@@ -7,9 +7,8 @@ GameScene::GameScene() : shape(nullptr){}
 
 GameScene::~GameScene()
 {
-	model = nullptr;
-
 	// As always after creating a ptr, delete it.
+	model = nullptr;
 	delete shape;
 	shape = nullptr;
 }

@@ -13,7 +13,7 @@ perspective(glm::mat4()), orthographic(glm::mat4()), view(glm::mat4())
 	worldUp = up;
 
 	// Essentially the world boundary
-	nearPlane = 2.0f;
+	nearPlane = 2.0f; // lens of our world
 	farPlane = 50.0f; // how far you render
 
 	/*
