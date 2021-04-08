@@ -8,15 +8,6 @@
 
 #include "../../Core/Camera.h"
 
-struct Vertex 
-{
-	glm::vec3 position;
-	glm::vec3 normal;
-	glm::vec2 textureCoordinates;
-	glm::vec3 colour;
-};
-
-
 /*
 [Non interleaved] - struct is created for all of the vertex attributes.
 
@@ -84,8 +75,6 @@ private:
 	std::vector<Vertex> vertexList;
 
 	GLuint shaderProgram;
-	GLuint modelLoc, viewLoc, projectionLoc; // uniform, view, projection's location variable
-
 	GLuint textureID;
 	GLuint modelLoc, viewLoc, projectionLoc, textureLoc;
 };

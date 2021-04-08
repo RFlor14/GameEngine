@@ -78,6 +78,11 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 		"Engine/Shaders/ColourFragmentShader.glsl");
 
 
+	ShaderHandler::GetInstance()->CreateProgram("basicShader",
+		"Engine/Shaders/VertexShader.glsl",
+		"Engine/Shaders/FragmentShader.glsl");
+
+
 	/*
 	Checks if gameInterface exists.
 
@@ -94,7 +99,6 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 			return isRunning = false;
 		}
 	}
-
 
 
 	/*
