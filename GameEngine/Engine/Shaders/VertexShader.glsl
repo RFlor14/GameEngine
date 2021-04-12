@@ -8,6 +8,7 @@ layout (location = 3) in vec3 colour;
 out vec3 Normal;
 out vec2 TexCoords;
 out vec3 Colour; // currently we're just using this
+out vec3 FragPosition;
 
 uniform mat4 model;
 uniform mat4 view;
@@ -20,5 +21,7 @@ void main()
 	Colour = colour;
 
 	TexCoords = texCoords;
-	Normal = normal; 
+
+	Normal = mat3(transpose(inverse(model))); 
+	FragPosition = vec3(model * vec4(position, 1.0f));
 }
