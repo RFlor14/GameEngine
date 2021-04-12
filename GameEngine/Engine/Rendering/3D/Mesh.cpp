@@ -51,6 +51,14 @@ void Mesh::Render(Camera* camera_,  glm::mat4 transform_)
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
+	// Render Light
+	glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera_->GetPosition()));
+	glUniform3fv(lightPosLoc, 1, glm::value_ptr(camera_->GetLightSources()[0]->GetLightPos()));
+	glUniform1f(lightAmbientLoc, camera_->GetLightSources()[0]->GetAmbient());
+	glUniform1f(lightDiffuseLoc, camera_->GetLightSources()[0]->GetDiffuse());
+	glUniform1f(lightSpecularLoc, camera_->GetLightSources()[0]->GetSpecular());
+	glUniform3fv(lightColourLoc, 1, glm::value_ptr(camera_->GetLightSources()[0]->GetLightColour()));
+
 	/*
 	 [glUniformMatrix4fv] Set the model matrix variable (set a 4x4 matrix var).
 	 - [f] setting up float
@@ -67,6 +75,7 @@ void Mesh::Render(Camera* camera_,  glm::mat4 transform_)
 	*/
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetView()));
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetPerspective()));
+
 
 	//First thing to always do w/ render is to bind the class' [VAO].
 	glBindVertexArray(VAO);
@@ -193,4 +202,10 @@ void Mesh::GenerateBuffers()
 	viewLoc = glGetUniformLocation(shaderProgram, "view");
 	projectionLoc = glGetUniformLocation(shaderProgram, "projection");
 	textureLoc = glGetUniformLocation(shaderProgram, "inputTexture");
+	viewPosLoc = glGetUniformLocation(shaderProgram, "cameraPos");
+	lightPosLoc = glGetUniformLocation(shaderProgram, "light.lightPos");
+	lightAmbientLoc = glGetUniformLocation(shaderProgram, "light.ambient");
+	lightDiffuseLoc = glGetUniformLocation(shaderProgram, "light.diffuse");
+	lightSpecularLoc = glGetUniformLocation(shaderProgram, "light.specular");
+	lightColourLoc = glGetUniformLocation(shaderProgram, "light.lightColour");
 }

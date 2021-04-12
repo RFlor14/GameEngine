@@ -1,13 +1,8 @@
 #include "LightSource.h"
 
-LightSource::LightSource(glm::vec3 lightPos_, float ambient_, float diffuse_, float specular_, glm::vec3 lightColor_) :
-	lightPos(glm::vec3()), ambient(0), diffuse(0), specular(0), lightColor(glm::vec3(0.0f, 1.0f, 0.0f))
+LightSource::LightSource(glm::vec3 lightPos_, float ambient_, float diffuse_, float specular_, glm::vec3 lightColour_) : lightPos(lightPos_), ambient(ambient_), diffuse(diffuse_), specular(specular_), lightColour(lightColour_)
 {
-	lightPos = lightPos_;
-	ambient = ambient_;
-	diffuse = diffuse_;
-	specular = specular_;
-	lightColor = lightColor_;
+
 }
 
 LightSource::~LightSource()
@@ -16,45 +11,50 @@ LightSource::~LightSource()
 
 glm::vec3 LightSource::GetLightPos() const
 {
-	return glm::vec3();
+	return lightPos;
 }
 
 float LightSource::GetAmbient() const
 {
-	return 0.0f;
+	return ambient;
 }
 
 float LightSource::GetDiffuse() const
 {
-	return 0.0f;
+	return diffuse;
 }
 
 float LightSource::GetSpecular() const
 {
-	return 0.0f;
+	return specular;
 }
 
-glm::vec3 LightSource::GetLightColor() const
+glm::vec3 LightSource::GetLightColour() const
 {
-	return glm::vec3();
+	return lightColour;
 }
 
 void LightSource::SetLightPos(glm::vec3 lightPos_)
 {
+	lightPos = lightPos_;
 }
 
 void LightSource::SetAmbient(float ambient_)
 {
+	ambient = ambient_;
 }
 
 void LightSource::SetDiffuse(float diffuse_)
 {
+	diffuse = diffuse_;
 }
 
 void LightSource::SetSpecular(float specular_)
 {
+	specular = specular_;
 }
 
-void LightSource::SetLightColor(glm::vec3 lightColor_)
+void LightSource::SetLightColour(glm::vec3 lightColour_)
 {
+	lightColour = lightColour_;
 }

@@ -3,6 +3,8 @@
 #include "../Core/CoreEngine.h"
 
 // Set up all default value for all variables
+std::vector<LightSource*> Camera::lightSources = std::vector<LightSource*>();
+
 Camera::Camera() : position(glm::vec3()), fieldOfView(0.0f), forward(glm::vec3()), up(glm::vec3()),
 right(glm::vec3()), worldUp(glm::vec3()), nearPlane(0.0f), farPlane(0.0f), yaw(0.0f), pitch(0.0f),
 perspective(glm::mat4()), orthographic(glm::mat4()), view(glm::mat4())
@@ -48,7 +50,18 @@ perspective(glm::mat4()), orthographic(glm::mat4()), view(glm::mat4())
 	UpdateCameraVectors();
 }
 
-Camera::~Camera(){}
+Camera::~Camera()
+{
+	if (lightSources.size() > 0)
+	{
+		for (auto l : lightSources)
+		{
+			delete l;
+			l = nullptr;
+		}
+		lightSources.clear();
+	}
+}
 
 void Camera::SetPosition(glm::vec3 position_)
 {
@@ -81,6 +94,16 @@ glm::mat4 Camera::GetOrthographic() const
 glm::vec3 Camera::GetPosition() const
 {
 	return position;
+}
+
+void Camera::AddLightSources(LightSource* source_)
+{
+	lightSources.push_back(source_);
+}
+
+std::vector<LightSource*> Camera::GetLightSources()
+{
+	return lightSources;
 }
 
 void Camera::UpdateCameraVectors()

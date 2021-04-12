@@ -54,6 +54,11 @@ void TextureHandler::OnDestroy()
 
 void TextureHandler::CreateTexture(const std::string& textureName_, const std::string& textureFilePath_)
 {
+	if (GetTextureData(textureName_))
+	{
+		return;
+	}
+
 	Texture* t = new Texture();
 	SDL_Surface* surface = nullptr;
 	surface = IMG_Load(textureFilePath_.c_str());

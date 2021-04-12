@@ -21,6 +21,9 @@ bool GameScene::OnCreate()
 	// Creates the camera
 	CoreEngine::GetInstance()->SetCamera(new Camera());
 	CoreEngine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 4.0f));
+
+	// Creates the light
+	CoreEngine::GetInstance()->GetCamera()->AddLightSources(new LightSource(glm::vec3(-2.0, 0.0, 0.0), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 0.0f, 1.0f)));
 	
 	// Creates the texture
 	TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture",

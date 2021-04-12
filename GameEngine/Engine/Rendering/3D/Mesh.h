@@ -5,7 +5,6 @@
 #include <vector> // Dynamically sized Array, it essentially goes into memory
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> // Allows to get the pointer of a specific glm variable type.
-
 #include "../../Core/Camera.h"
 
 /*
@@ -76,7 +75,7 @@ private:
 
 	GLuint shaderProgram;
 	GLuint textureID;
-	GLuint modelLoc, viewLoc, projectionLoc, textureLoc;
+	GLuint modelLoc, viewLoc, projectionLoc, textureLoc, viewPosLoc, lightPosLoc, lightAmbientLoc, lightDiffuseLoc, lightSpecularLoc, lightColourLoc;
 };
 #endif // !MESH_H
 

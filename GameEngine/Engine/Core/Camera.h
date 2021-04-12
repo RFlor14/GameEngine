@@ -3,6 +3,9 @@
 
 #include <glm/glm.hpp> // Enables acess to all of the glm data types.
 #include <glm/gtc/matrix_transform.hpp> // Enables acess to special matrix functions.
+#include <vector>
+#include "../FX/LightSource.h"
+
 
 class Camera
 {
@@ -21,6 +24,11 @@ public:
 	glm::mat4 GetPerspective() const;
 	glm::mat4 GetOrthographic() const;
 	glm::vec3 GetPosition() const;
+
+	void AddLightSources(LightSource* source_);
+	std::vector<LightSource*> GetLightSources();
+
+
 
 private:
 
@@ -43,6 +51,10 @@ private:
 	 [wolrdUp vector] is a reference to what is the [up] direction of the world.
 	*/
 	glm::vec3 forward, up, right, worldUp; 
+
+	// LightSource pointers
+	static std::vector<LightSource*> lightSources;
+
 };
 
 
