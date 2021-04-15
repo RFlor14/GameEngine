@@ -23,7 +23,7 @@ bool GameScene::OnCreate()
 	CoreEngine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 4.0f));
 
 	// Creates the light
-	CoreEngine::GetInstance()->GetCamera()->AddLightSources(new LightSource(glm::vec3(-2.0, 0.0, 0.0), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 0.0f, 1.0f)));
+	CoreEngine::GetInstance()->GetCamera()->AddLightSources(new LightSource(glm::vec3(0.0, 0.0, 2.0), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f)));
 	
 	// Creates the texture
 	TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture",
@@ -419,11 +419,14 @@ bool GameScene::OnCreate()
 	*/
 
 	// Creates the model, pass in the GLuint for the shader program
-	model = new Model(ShaderHandler::GetInstance()->GetShader("basicShader"));
+	model = new Model("", "", ShaderHandler::GetInstance()->GetShader("basicShader"));
+
+	SubMesh subMesh;
+	subMesh.vertexList = vertexList;
+	subMesh.textureID = TextureHandler::GetInstance()->GetTexture("CheckerboardTexture");
 
 	// Set the model w/ a mesh
-	model->AddMesh(new Mesh(vertexList, 
-		TextureHandler::GetInstance()->GetTexture("CheckerboardTexture"),
+	model->AddMesh(new Mesh(subMesh, 
 		ShaderHandler::GetInstance()->GetShader("basicShader")));
 
 	// test transform
@@ -437,13 +440,7 @@ bool GameScene::OnCreate()
 
 void GameScene::Update(const float deltaTime_)
 {
-	/*
-	 Changes the models angle continously
-
-	 Get angle of the model is equal to what we're passing in
-	 to set the model's angle + value.
-	*/
-	model->SetAngle(model->GetAngle() + 0.005f);
+	shape->Update(deltaTime_);
 }
 
 void GameScene::Render()

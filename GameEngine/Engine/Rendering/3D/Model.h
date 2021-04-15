@@ -3,6 +3,7 @@
 
 #include "Mesh.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <string>
 
 class Model
 {
@@ -15,11 +16,7 @@ public:
 	[shaderProgram_] makes sure each model has the ability to specify what
 	shader program to use to render itself.
 	*/
-	Model(GLuint shaderProgram_, glm::vec3 position_ = glm::vec3(),
-		float angle_ = 0.0f, 
-		glm::vec3 rotation_ = glm::vec3(0.0f, 1.0f, 0.0f),
-		glm::vec3 scale_ = glm::vec3(1.0f));
-
+	Model(const std::string& objPath_, const std::string& matPath_, GLuint shaderProgram_);
 	~Model();
 
 	void Render(Camera* camera_);
@@ -27,36 +24,41 @@ public:
 	// Adds a mesh to this model.
 	void AddMesh(Mesh* mesh_);
 
-	glm::vec3 GetPosition() const;
-	float GetAngle() const;
-	glm::vec3 GetRotation() const;
-	glm::vec3 GetScale() const;
+	
+	// Takes in pos, ang, rot, sca and creates a model matrix.
+	unsigned int CreateInstance(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_);
 
-
-	void SetPosition(glm::vec3 position_);
-	void SetAngle(float angle_);
-	void SetRotation(glm::vec3 rotation_);
-	void SetScale(glm::vec3 scale_);
-
+	/* 
+	 Takes in a specific index of an instance (pos, ang...) then it goes to
+	 the vector of modelInstances and update that specific instances model matrix.
+	*/
+	void UpdateInstance(unsigned int index_, glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_);
+	
+	/*
+	 You pass it the specific index of the instance, then it returns 
+	 the instances model matrix.
+	*/ 
+	glm::mat4 GetTransform(unsigned int index_) const;
 
 private:
 	
+	// creates the transformation matrix, takes in (pos, ang...)'s values to create that matrix.
+	glm::mat4 CreateTransform(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_) const;
+	
+	
+	void LoadModel();
+
 	// Holds a collection of mesh pointers.
 	std::vector<Mesh*> meshes;
-
 
 	// Saves the shader program
 	GLuint shaderProgram;
 
-
-	glm::vec3 position;
-	float angle;
-	glm::vec3 rotation;
-	glm::vec3 scale;
-
-
-	// returns a 4x4 matrix
-	glm::mat4 GetTransform() const;
+	/*
+	 Holds a vector for all of the model's instances, and returns
+	 the number of the current or newly created instances.
+	*/
+	std::vector<glm::mat4> modelInstances;
 
 
 };

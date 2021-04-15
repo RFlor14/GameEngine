@@ -14,13 +14,37 @@ public:
 	If we want an empty game object, we just pass in nullptr.
 	*/
 	GameObject(Model* model_);
+	GameObject(Model* model_, glm::vec3 position_);
 	~GameObject();
 
+	void Update(const float deltaTime_);
 	void Render(Camera* camera_);
+
+	glm::vec3 GetPosition() const;
+	float GetAngle() const;
+	glm::vec3 GetRotation() const;
+	glm::vec3 GetScale() const;
+
+	void SetPosition(glm::vec3 position_);
+	void SetAngle(float angle_);
+	void SetRotation(glm::vec3 rotation_);
+	void SetScale(glm::vec3 scale_);
+
 private:
 
 	// Holds a refferrence to its model.
 	Model* model;
+
+	/*
+	 This is tied into game object so that when making
+	 changes to an object, it only affects that, instead
+	 of the actual model.
+	*/
+	unsigned int modelInstance;
+	glm::vec3 position;
+	float angle;
+	glm::vec3 rotation;
+	glm::vec3 scale;
 };
 
 #endif // !GAMEOBJECT_H

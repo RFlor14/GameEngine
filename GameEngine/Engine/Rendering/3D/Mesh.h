@@ -26,6 +26,13 @@ struct Vertex {
 	glm::vec3 colour;
 };
 
+struct SubMesh
+{
+	std::vector<Vertex> vertexList;
+	std::vector<unsigned int> meshIndices;
+	GLuint textureID;
+};
+
 class Mesh
 {
 public:
@@ -44,10 +51,10 @@ public:
 	Passing it in by [refferrence] is just passing the adress of
 	the vector. 
 	*/
-	Mesh(std::vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_);
+	Mesh(SubMesh& subMesh_, GLuint shaderProgram_);
 	~Mesh();
 
-	void Render(Camera* camera_, glm::mat4 transform_);
+	void Render(Camera* camera_, std::vector<glm::mat4>& instances_);
 
 private:
 
@@ -67,15 +74,12 @@ private:
 	*/
 	GLuint VAO, VBO; 
 
-	/*
-	Inside the constructor, we're saving the vector that we gat passed in
-	to our class' vector.
-	*/
-	std::vector<Vertex> vertexList;
-
+	SubMesh subMesh;
 	GLuint shaderProgram;
 	GLuint textureID;
-	GLuint modelLoc, viewLoc, projectionLoc, textureLoc, viewPosLoc, lightPosLoc, lightAmbientLoc, lightDiffuseLoc, lightSpecularLoc, lightColourLoc;
+	GLuint modelLoc, viewLoc, projectionLoc, textureLoc, 
+		viewPosLoc, lightPosLoc, lightAmbientLoc, lightDiffuseLoc, 
+		lightSpecularLoc, lightColourLoc;
 };
 #endif // !MESH_H
 

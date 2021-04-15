@@ -9,8 +9,8 @@ lowest it can go is 0.
 Sets [vertexList] to equal an empty vector. When creating an empty vector it's
 vector name equal to the signature of the vetor followed by empty brackets.
 */ 
-Mesh::Mesh(std::vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_) : VAO(0), VBO(0), 
-vertexList(std::vector<Vertex>()), shaderProgram(0), textureID(0), modelLoc(0), viewLoc(0), 
+Mesh::Mesh(SubMesh& subMesh_, GLuint shaderProgram_) : VAO(0), VBO(0),
+shaderProgram(0), modelLoc(0), viewLoc(0), 
 projectionLoc(0), textureLoc(0)
 {
 	/*
@@ -19,8 +19,7 @@ projectionLoc(0), textureLoc(0)
 	We're setting the class' vertex list equal to the vertex
 	that we get passed in as a parameter.
 	*/
-	vertexList = vertexList_;
-	textureID = textureID_;
+	subMesh = subMesh_;
 	shaderProgram = shaderProgram_;
 	GenerateBuffers();
 }
@@ -39,17 +38,25 @@ Mesh::~Mesh()
 
 	/*
 	Since it holds non pointer objects, we don't have to go
-	through th vector and delete every single object.
+	through the vector and delete every single object.
 	*/
-	vertexList.clear(); 
+	if (subMesh.vertexList.size() > 0)
+	{
+		subMesh.vertexList.clear();
+	}
+
+	if (subMesh.meshIndices.size() > 0)
+	{
+		subMesh.meshIndices.clear();
+	}
 }
 
-void Mesh::Render(Camera* camera_,  glm::mat4 transform_)
+void Mesh::Render(Camera* camera_,  std::vector<glm::mat4>& instances_)
 {
 	// Render everything needed for the texture first.
 	glUniform1i(textureLoc, 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D, subMesh.textureID);
 
 	// Render Light
 	glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera_->GetPosition()));
@@ -82,7 +89,19 @@ void Mesh::Render(Camera* camera_,  glm::mat4 transform_)
 
 	glEnable(GL_DEPTH_TEST); // Enables depth test, when objects are rendered, Z value is taken into account.
 
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(transform_));
+	/*
+	 For each instance, we need to draw the mesh.
+
+	 Instead of passing in the transform matrix, we're
+	 passing in the specific instance that we're iterating over.
+
+	 Then call to draw the triangles.
+	*/
+	for (int i = 0; i < instances_.size(); i++)
+	{
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(instances_[i]));
+		glDrawArrays(GL_TRIANGLES, 0, subMesh.vertexList.size());
+	}
 
 	/*
 	Call to draw for OpenGL, in this case we're drawing arrays
@@ -98,10 +117,10 @@ void Mesh::Render(Camera* camera_,  glm::mat4 transform_)
 	
 	Some other render types are (GL_POINTS, GL_LINES, GL_LINE_STRIP, and more).
 	*/ 
-	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());
 
 	// Clears vertex array for future use.
 	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Mesh::GenerateBuffers()
@@ -131,8 +150,8 @@ void Mesh::GenerateBuffers()
 	glGenBuffers(1, &VBO);
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertexList.size() * sizeof(Vertex),
-		&vertexList[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, subMesh.vertexList.size() * sizeof(Vertex),
+		&subMesh.vertexList[0], GL_STATIC_DRAW);
 
 	/*
 	Whenever we tell the GPU what attribute is going to be
@@ -202,6 +221,8 @@ void Mesh::GenerateBuffers()
 	viewLoc = glGetUniformLocation(shaderProgram, "view");
 	projectionLoc = glGetUniformLocation(shaderProgram, "projection");
 	textureLoc = glGetUniformLocation(shaderProgram, "inputTexture");
+
+	// Camera and Light
 	viewPosLoc = glGetUniformLocation(shaderProgram, "cameraPos");
 	lightPosLoc = glGetUniformLocation(shaderProgram, "light.lightPos");
 	lightAmbientLoc = glGetUniformLocation(shaderProgram, "light.ambient");
