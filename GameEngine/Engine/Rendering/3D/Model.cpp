@@ -6,6 +6,12 @@ Model::Model(const std::string& objPath_, const std::string& matPath_, GLuint sh
 {
 	// set shader program var to what we passed in as a param.
 	shaderProgram = shaderProgram_;
+
+	meshes.reserve(10);
+	modelInstances.reserve(5);
+	obj = new LoadOBJModel();
+	obj->LoadModel(objPath_, matPath_);
+	LoadModel();
 }
 
 /*
@@ -132,6 +138,20 @@ glm::mat4 Model::CreateTransform(glm::vec3 position_, float angle_, glm::vec3 ro
 
 void Model::LoadModel()
 {
+	/*
+	 Once the class loads in all the data, place it in sub meshes.
+
+	 Go through all sub meshes, and for each sub mesh, add it
+	 to the model's meshes vector.
+	*/
+	for (int i = 0; i < obj->GetSubMeshes().size(); i++)
+	{
+		meshes.push_back(new Mesh(obj->GetSubMeshes()[i], shaderProgram));
+	}
+	 
+	delete obj;
+	obj = nullptr;
+
 }
 
 

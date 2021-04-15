@@ -1,9 +1,9 @@
 #ifndef MODEL_H
 #define	MODEL_H
 
-#include "Mesh.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <string>
+#include "LoadOBJModel.h"
 
 class Model
 {
@@ -45,7 +45,6 @@ private:
 	// creates the transformation matrix, takes in (pos, ang...)'s values to create that matrix.
 	glm::mat4 CreateTransform(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_) const;
 	
-	
 	void LoadModel();
 
 	// Holds a collection of mesh pointers.
@@ -60,6 +59,7 @@ private:
 	*/
 	std::vector<glm::mat4> modelInstances;
 
+	LoadOBJModel* obj;
 
 };
 #endif // !MODEL_H
