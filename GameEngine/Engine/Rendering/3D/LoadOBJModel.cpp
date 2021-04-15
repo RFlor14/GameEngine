@@ -62,9 +62,9 @@ void LoadOBJModel::PostProcessing()
 	for (unsigned int i = 0; i < indices.size(); i++)
 	{
 		Vertex vert;
-		vert.position = vertices[indices[i]];
-		vert.normal = normals[normalIndices[i]];
-		vert.textureCoordinates = textureCoords[textureIndices[i]];
+		vert.position = vertices[indices[i] - 1];
+		vert.normal = normals[normalIndices[i] - 1];
+		vert.textureCoordinates = textureCoords[textureIndices[i] - 1];
 		meshVertices.push_back(vert);
 	}
 
@@ -116,6 +116,45 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 			vertices.push_back(glm::vec3(x, y, z));
 		}
 
+		//NORMAL DATA
+		else if (line.substr(0, 3) == "vn ") {
+			std::stringstream vn(line.substr(3));
+			float x, y, z;
+			vn >> x >> y >> z;
+			normals.push_back(glm::vec3(x, y, z));
+		}
+
+		//TEXTURE COORDS
+		else if (line.substr(0, 3) == "vt ") {
+			std::stringstream vt(line.substr(3));
+			float x, y;
+			vt >> x >> y;
+			textureCoords.push_back(glm::vec2(x, y));
+		}
+
+		//FACE DATA
+		else if (line.substr(0, 2) == "f ")
+		{
+			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
+			char slashes[6];
+			std::stringstream v(line.substr(2));
+			v >> vertexIndex[0] >> slashes[0] >> uvIndex[0] >> slashes[1] >> normalIndex[0] >>
+				vertexIndex[1] >> slashes[2] >> uvIndex[1] >> slashes[3] >> normalIndex[1] >>
+				vertexIndex[2] >> slashes[4] >> uvIndex[2] >> slashes[5] >> normalIndex[2];
+
+			indices.push_back(vertexIndex[0]);
+			indices.push_back(vertexIndex[1]);
+			indices.push_back(vertexIndex[2]);
+
+			textureIndices.push_back(uvIndex[0]);
+			textureIndices.push_back(uvIndex[1]);
+			textureIndices.push_back(uvIndex[2]);
+
+			normalIndices.push_back(normalIndex[0]);
+			normalIndices.push_back(normalIndex[1]);
+			normalIndices.push_back(normalIndex[2]);
+		}
+
 		//NEW MESH
 		/*
 		 Before calling post processing, check to make sure that
@@ -128,7 +167,7 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 		*/
 		else if (line.substr(0, 7) == "usemtl ")
 		{
-			if (indices.size())
+			if (indices.size() > 0)
 			{
 				PostProcessing();
 			}
