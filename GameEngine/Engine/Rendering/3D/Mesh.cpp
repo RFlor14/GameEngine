@@ -11,7 +11,9 @@ vector name equal to the signature of the vetor followed by empty brackets.
 */ 
 Mesh::Mesh(SubMesh& subMesh_, GLuint shaderProgram_) : VAO(0), VBO(0),
 shaderProgram(0), modelLoc(0), viewLoc(0), 
-projectionLoc(0), textureLoc(0)
+projectionLoc(0), textureLoc(0), viewPosLoc(0), lightPosLoc(0),
+lightAmbientLoc(0), lightDiffuseLoc(0), lightSpecularLoc(0),
+lightColourLoc(0)
 {
 	/*
 	MUST happen before [GenerateBuffers].

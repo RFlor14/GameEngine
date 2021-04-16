@@ -136,11 +136,11 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 		else if (line.substr(0, 2) == "f ")
 		{
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-			char slashes[6];
+			char slash;
 			std::stringstream v(line.substr(2));
-			v >> vertexIndex[0] >> slashes[0] >> uvIndex[0] >> slashes[1] >> normalIndex[0] >>
-				vertexIndex[1] >> slashes[2] >> uvIndex[1] >> slashes[3] >> normalIndex[1] >>
-				vertexIndex[2] >> slashes[4] >> uvIndex[2] >> slashes[5] >> normalIndex[2];
+			v >> vertexIndex[0] >> slash >> uvIndex[0] >> slash >> normalIndex[0] >>
+				vertexIndex[1] >> slash >> uvIndex[1] >> slash >> normalIndex[1] >>
+				vertexIndex[2] >> slash >> uvIndex[2] >> slash >> normalIndex[2];
 
 			indices.push_back(vertexIndex[0]);
 			indices.push_back(vertexIndex[1]);
