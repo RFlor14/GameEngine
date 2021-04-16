@@ -95,6 +95,7 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 	}
 
 	std::string line;
+
 	while (std::getline(in, line))
 	{
 		//VERTEX DATA
@@ -168,7 +169,7 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 		else if (line.substr(0, 7) == "usemtl ")
 		{
 			if (indices.size() > 0)
-			{
+			{ 
 				PostProcessing();
 			}
 			LoadMaterial(line.substr(7));
@@ -176,6 +177,7 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 	}
 
 	PostProcessing();
+	in.close();
 }
 
 void LoadOBJModel::LoadMaterial(const std::string& matName_)

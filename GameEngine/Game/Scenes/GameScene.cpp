@@ -2,7 +2,7 @@
 
 
 // sets shape's default value to nullptr and makes sure it has no junk data.
-GameScene::GameScene() : shape(nullptr){}
+GameScene::GameScene() : shape(nullptr), model(nullptr){}
 
 
 GameScene::~GameScene()
@@ -23,7 +23,7 @@ bool GameScene::OnCreate()
 	CoreEngine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 4.0f));
 
 	// Creates the light
-	CoreEngine::GetInstance()->GetCamera()->AddLightSources(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f)));
+	CoreEngine::GetInstance()->GetCamera()->AddLightSources(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 0.0f, 0.0f)));
 
 	//// Creates the model, pass in the GLuint for the shader program
 	model = new Model("Resources/Models/Dice.obj",

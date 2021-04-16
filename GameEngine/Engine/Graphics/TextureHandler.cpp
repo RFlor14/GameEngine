@@ -138,8 +138,9 @@ const GLuint TextureHandler::GetTexture(const std::string& textureName_)
 		{
 			return t->textureID;
 		}
-		return 0;
 	}
+
+	return 0;
 }
 
 const Texture* TextureHandler::GetTextureData(const std::string textureName_)

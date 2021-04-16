@@ -48,5 +48,5 @@ private:
 	GLuint currentTexture;
 };
 
-#endif LOADOBJMODEL_H
+#endif // LOADOBJMODEL_H
 
