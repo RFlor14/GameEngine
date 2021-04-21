@@ -2,7 +2,6 @@
 
 in vec3 Normal;
 in vec2 TexCoords;
-in vec3 Colour;
 in vec3 FragPosition;
 
 // Added light struct (week 7)
