@@ -122,6 +122,11 @@ glm::mat4 Model::GetTransform(unsigned int index_) const
 	return modelInstances[index_];
 }
 
+GLuint Model::GetShaderProgram() const
+{
+	return shaderProgram;
+}
+
 /*
  Similar to old Get Transform, this creates the
  transformation matrix, but now we're using the glm functions.

@@ -40,6 +40,8 @@ public:
 	*/ 
 	glm::mat4 GetTransform(unsigned int index_) const;
 
+	GLuint GetShaderProgram() const;
+
 private:
 	
 	// creates the transformation matrix, takes in (pos, ang...)'s values to create that matrix.
