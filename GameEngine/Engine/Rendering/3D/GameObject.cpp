@@ -37,11 +37,13 @@ GameObject::~GameObject()
 	it might not have a model associated to it.
 
 	Check's if the model actually exists, delete the pointer.
+
+	Scene graph now handles deleting the model.
+		if (model)
+		{
+			delete model;
+		}
 	*/
-	if (model)
-	{
-		delete model;
-	}
 	
 	//Regardless if it equals null or not, set it equal to null.
 	model = nullptr;
