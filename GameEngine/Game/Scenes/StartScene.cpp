@@ -1,7 +1,5 @@
 #include "StartScene.h"
 
-
-
 StartScene::StartScene()
 {
 }
