@@ -249,7 +249,9 @@ void CoreEngine::OnDestroy()
 	// call in shader handler destroyer
 	ShaderHandler::GetInstance()->OnDestroy();
 	TextureHandler::GetInstance()->OnDestroy();
+	MaterialHandler::GetInstance()->OnDestroy();
 	SceneGraph::GetInstance()->OnDestroy();
+	
 
 	/*
 	Cleans up the pointer.
