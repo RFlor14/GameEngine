@@ -83,7 +83,7 @@ private:
 		viewPosLoc, lightPosLoc, lightAmbientLoc, lightDiffuseLoc, 
 		lightSpecularLoc, lightColourLoc;
 
-	GLuint matDiffuseMap, matShininessLoc, matTransparencyLoc, matAmbientLoc, matDiffuseLoc, matSpecularLoc;
+	GLuint diffuseMap, matShininessLoc, matTransparencyLoc, matAmbientLoc, matDiffuseLoc, matSpecularLoc;
 };
 #endif // !MESH_H
 

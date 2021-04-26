@@ -56,7 +56,7 @@ Mesh::~Mesh()
 void Mesh::Render(Camera* camera_,  std::vector<glm::mat4>& instances_)
 {
 	// Render everything needed for the texture first.
-	glUniform1i(subMesh.material.diffuseMap, 0);
+	glUniform1i(diffuseMap, 0);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, subMesh.material.diffuseMap);
 
@@ -235,10 +235,10 @@ void Mesh::GenerateBuffers()
 	lightColourLoc = glGetUniformLocation(shaderProgram, "light.lightColour");
 
 	// Material
-	matDiffuseMap = glGetUniformLocation(shaderProgram, "material.diffuseMap");
+	diffuseMap = glGetUniformLocation(shaderProgram, "material.diffuseMap");
+	matShininessLoc = glGetUniformLocation(shaderProgram, "material.shininess");
+	matTransparencyLoc = glGetUniformLocation(shaderProgram, "material.transparency");
 	matAmbientLoc = glGetUniformLocation(shaderProgram, "material.ambient");
 	matDiffuseLoc = glGetUniformLocation(shaderProgram, "material.diffuse");
 	matSpecularLoc = glGetUniformLocation(shaderProgram, "material.specular");
-	matShininessLoc = glGetUniformLocation(shaderProgram, "material.shininess");
-	matTransparencyLoc = glGetUniformLocation(shaderProgram, "material.transparency");
 }
