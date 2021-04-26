@@ -44,5 +44,5 @@ private:
 	static std::map<std::string, GameObject*> sceneGameObjects;
 };
 
-#endif SCENEGRAPH_H
+#endif // !SCENEGRAPH_H
 

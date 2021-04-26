@@ -40,7 +40,7 @@ public:
 
 	static MaterialHandler* GetInstance();
 	void AddMaterial(Material& mat_);
-	const Material GetMaterial(const std::string& matName_);
+	Material GetMaterial(const std::string& matName_) const;
 	void OnDestroy();
 
 private:

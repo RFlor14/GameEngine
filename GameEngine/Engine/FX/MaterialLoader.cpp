@@ -71,18 +71,21 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.name = matName;
 		}
 
+		// Shininess
 		else if (line.substr(0, 4) == "\tNs ")
 		{
 			std::stringstream Ns(line.substr(4));
 			Ns >> m.shininess;
 		}
 
+		// Transparency
 		else if (line.substr(0, 3) == "\td ")
 		{
 			std::stringstream d(line.substr(3));
 			d >> m.transparency;
 		}
 
+		// Ambient
 		else if (line.substr(0, 4) == "\tKa ")
 		{
 			std::stringstream Ka(line.substr(4));
@@ -91,6 +94,7 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.ambient = glm::vec3(x,y,z);
 		}
 
+		// Diffuse
 		else if (line.substr(0, 4) == "\tKd ")
 		{
 			std::stringstream Kd(line.substr(4));
@@ -99,6 +103,7 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.diffuse = glm::vec3(x, y, z);
 		}
 
+		// Specular
 		else if (line.substr(0, 4) == "\tKs ")
 		{
 			std::stringstream Ks(line.substr(4));
@@ -141,5 +146,5 @@ GLuint MaterialLoader::LoadTexture(std::string fileName_)
 	
 	// If we went into the if statement or not, always return currentTexture.
 	return currentTexture;
-		
+	
 }

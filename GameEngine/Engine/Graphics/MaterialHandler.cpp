@@ -35,7 +35,7 @@ void MaterialHandler::AddMaterial(Material& mat_)
     materials.push_back(mat_);
 }
 
-const Material MaterialHandler::GetMaterial(const std::string& matName_)
+Material MaterialHandler::GetMaterial(const std::string& matName_) const
 {
     /*
      Go through each element of the vector.
