@@ -4,7 +4,7 @@ LoadOBJModel::LoadOBJModel() : vertices(std::vector<glm::vec3>()),
 normals(std::vector<glm::vec3>()), textureCoords(std::vector<glm::vec2>()),
 indices(std::vector<unsigned int>()), normalIndices(std::vector<unsigned int>()),
 textureIndices(std::vector<unsigned int>()), meshVertices(std::vector<Vertex>()),
-subMeshes(std::vector<SubMesh>()), currentTexture(0)
+subMeshes(std::vector<SubMesh>()), currentMaterial(Material())
 {
 	vertices.reserve(200);
 	normals.reserve(200);
@@ -71,7 +71,7 @@ void LoadOBJModel::PostProcessing()
 	SubMesh mesh;
 	mesh.vertexList = meshVertices;
 	mesh.meshIndices = indices;
-	mesh.textureID = currentTexture;
+	mesh.material = currentMaterial;
 
 	subMeshes.push_back(mesh);
 
@@ -81,7 +81,15 @@ void LoadOBJModel::PostProcessing()
 	textureIndices.clear();
 	meshVertices.clear();
 
-	currentTexture = 0;
+	/*
+	 This makes sure that we're clearing out all
+	 of the data that's inside of current material.
+	 
+	 So when it comes to the next mesh that we're 
+	 loading, we wont have nay data in that
+	 current material.
+	*/
+	currentMaterial = Material();
 }
 
 void LoadOBJModel::LoadModel(const std::string& filePath_)
@@ -182,34 +190,10 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 
 void LoadOBJModel::LoadMaterial(const std::string& matName_)
 {
-	currentTexture = TextureHandler::GetInstance()->GetTexture(matName_);
-	if (currentTexture == 0)
-	{
-		TextureHandler::GetInstance()->CreateTexture(matName_, "Resources/Textures/" + matName_ + ".png");
-		currentTexture = TextureHandler::GetInstance()->GetTexture(matName_);
-	}
+	currentMaterial = MaterialHandler::GetInstance()->GetMaterial(matName_);
 }
 
 void LoadOBJModel::LoadMaterialLibrary(const std::string& matFilePath_)
 {
-	// Uses ifstream to open an mtl file
-	std::ifstream in(matFilePath_.c_str(), std::ios::in);
-	if (!in)
-	{
-		Debug::Error("Cannot open MTL file: " + matFilePath_, "LoadOBJModel.cpp", __LINE__);
-	}
-
-	/*
-	 Create a string called line,
-	 Use getline function (takes in a file and then a string for the line)
-	 then fill the line string w/ what is the current line in the function.
-	*/
-	std::string line;
-	while (std::getline(in, line))
-	{
-		if (line.substr(0, 7) == "newmtl ")
-		{
-			LoadMaterial(line.substr(7));
-		}
-	}
+	MaterialLoader::LoadMaterial(matFilePath_);
 }
