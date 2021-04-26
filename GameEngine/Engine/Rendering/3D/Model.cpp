@@ -46,7 +46,7 @@ Model::~Model()
 			delete m;
 			m = nullptr;
 		}
-		// Now that every object is null, clear this meshes vector.
+		//// Now that every object is null, clear this meshes vector.
 		meshes.clear();
 	}
 

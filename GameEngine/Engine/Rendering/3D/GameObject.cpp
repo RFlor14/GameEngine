@@ -31,19 +31,6 @@ angle(0.0f), rotation(glm::vec3(0.0f, 1.0f, 0.0f)), scale(glm::vec3(1.0f)), mode
 
 GameObject::~GameObject()
 {
-	/*
-	Reason why it's in an [if] is we want our engine to have
-	the ability to have an empty game object, meaning sometimes
-	it might not have a model associated to it.
-
-	Check's if the model actually exists, delete the pointer.
-
-	Scene graph now handles deleting the model.
-		if (model)
-		{
-			delete model;
-		}
-	*/
 	
 	//Regardless if it equals null or not, set it equal to null.
 	model = nullptr;

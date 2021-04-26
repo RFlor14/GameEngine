@@ -71,7 +71,7 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.name = matName;
 		}
 
-		// Shininess
+		// Ns = Shininess
 		else if (line.substr(0, 4) == "\tNs ")
 		{
 			std::stringstream ns(line.substr(4));
@@ -80,7 +80,7 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.shininess = shine;
 		}
 
-		// Transparency
+		// d = Transparency
 		else if (line.substr(0, 3) == "\td ")
 		{
 			std::stringstream d(line.substr(3));
@@ -89,7 +89,7 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.transparency = transp;
 		}
 
-		// Ambient
+		// Ka = Ambient
 		else if (line.substr(0, 4) == "\tKa ")
 		{
 			std::stringstream ka(line.substr(4));
@@ -98,7 +98,7 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.ambient = glm::vec3(x,y,z);
 		}
 
-		// Diffuse
+		// Kd = Diffuse
 		else if (line.substr(0, 4) == "\tKd ")
 		{
 			std::stringstream kd(line.substr(4));
@@ -107,7 +107,7 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 			m.diffuse = glm::vec3(x, y, z);
 		}
 
-		// Specular
+		// Ks = Specular
 		else if (line.substr(0, 4) == "\tKs ")
 		{
 			std::stringstream ks(line.substr(4));

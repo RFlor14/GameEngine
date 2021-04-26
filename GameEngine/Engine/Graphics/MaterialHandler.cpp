@@ -22,7 +22,7 @@ MaterialHandler* MaterialHandler::GetInstance()
      Check if instsance exist, if not (nulltpr)
      reset unique ptr.
     */
-    if (materialInstance.get() == nullptr);
+    if (materialInstance.get() == nullptr)
     {
         materialInstance.reset(new MaterialHandler);
     }
