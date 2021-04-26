@@ -58,7 +58,6 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 				*/
 				m = Material();
 			}
-
 			/*
 			 After the if statement, set the materials name to 
 			 be what comes after this newmtl line.
@@ -70,6 +69,42 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 
 			// set name of material to be this material name string.
 			m.name = matName;
+		}
+
+		else if (line.substr(0, 4) == "\tNs ")
+		{
+			std::stringstream Ns(line.substr(4));
+			Ns >> m.shininess;
+		}
+
+		else if (line.substr(0, 3) == "\td ")
+		{
+			std::stringstream d(line.substr(3));
+			d >> m.transparency;
+		}
+
+		else if (line.substr(0, 4) == "\tKa ")
+		{
+			std::stringstream Ka(line.substr(4));
+			float x, y, z;
+			Ka >> x >> y >> z;
+			m.ambient = glm::vec3(x,y,z);
+		}
+
+		else if (line.substr(0, 4) == "\tKd ")
+		{
+			std::stringstream Kd(line.substr(4));
+			float x, y, z;
+			Kd >> x >> y >> z;
+			m.diffuse = glm::vec3(x, y, z);
+		}
+
+		else if (line.substr(0, 4) == "\tKs ")
+		{
+			std::stringstream Ks(line.substr(4));
+			float x, y, z;
+			Ks >> x >> y >> z;
+			m.specular = glm::vec3(x, y, z);
 		}
 	}
 

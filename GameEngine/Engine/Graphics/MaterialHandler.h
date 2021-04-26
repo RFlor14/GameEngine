@@ -10,14 +10,16 @@
 
 struct Material
 {
-	inline Material() : diffuseMap(0), shininess(32.0f), transperancy(1.0f),
-		ambient(glm::vec3(1.0f)), diffuse(glm::vec3(1.0f)), specular(glm::vec3(1.0f)),
-		name(""){}
+	inline Material() : diffuseMap(0), shininess(32.0f), transparency(1.0f),
+	ambient(glm::vec3(1.0f)), diffuse(glm::vec3(1.0f)), specular(glm::vec3(1.0f)),
+	name(""){
+
+	}
 
 	GLuint diffuseMap; //newmtl
 
 	float shininess; //Ns
-	float transperancy; //d
+	float transparency; //d
 
 	glm::vec3 ambient; //Ka
 	glm::vec3 diffuse; //Kd
@@ -52,5 +54,6 @@ private:
 	
 };
 
-#endif MATERIALHANDLER_H
+#endif // !MATERIALHANDLER_H
+
 

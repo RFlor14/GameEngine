@@ -79,9 +79,11 @@ private:
 	SubMesh subMesh;
 	GLuint shaderProgram;
 	GLuint textureID;
-	GLuint modelLoc, viewLoc, projectionLoc, textureLoc, 
+	GLuint modelLoc, viewLoc, projectionLoc,  
 		viewPosLoc, lightPosLoc, lightAmbientLoc, lightDiffuseLoc, 
 		lightSpecularLoc, lightColourLoc;
+
+	GLuint matDiffuseMap, matShininessLoc, matTransparencyLoc, matAmbientLoc, matDiffuseLoc, matSpecularLoc;
 };
 #endif // !MESH_H
 
