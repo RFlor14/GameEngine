@@ -92,9 +92,9 @@ void MaterialLoader::LoadMaterial(std::string filePath_)
 		// Ambient
 		else if (line.substr(0, 4) == "\tKa ")
 		{
-			std::stringstream Ka(line.substr(4));
+			std::stringstream ka(line.substr(4));
 			float x, y, z;
-			Ka >> x >> y >> z;
+			ka >> x >> y >> z;
 			m.ambient = glm::vec3(x,y,z);
 		}
 
