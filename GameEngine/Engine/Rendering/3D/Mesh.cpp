@@ -58,7 +58,7 @@ void Mesh::Render(Camera* camera_,  std::vector<glm::mat4>& instances_)
 	// Render everything needed for the texture first.
 	glUniform1i(textureLoc, 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, subMesh.textureID);
+	glBindTexture(GL_TEXTURE_2D, subMesh.material.diffuseMap);
 
 	// Render Light
 	glUniform3fv(viewPosLoc, 1, glm::value_ptr(camera_->GetPosition()));

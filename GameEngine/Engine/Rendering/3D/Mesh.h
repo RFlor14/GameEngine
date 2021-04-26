@@ -5,7 +5,10 @@
 #include <vector> // Dynamically sized Array, it essentially goes into memory
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp> // Allows to get the pointer of a specific glm variable type.
+
+
 #include "../../Core/Camera.h"
+#include "../../Graphics/MaterialHandler.h"
 
 /*
 [Non interleaved] - struct is created for all of the vertex attributes.
@@ -29,7 +32,7 @@ struct SubMesh
 {
 	std::vector<Vertex> vertexList;
 	std::vector<unsigned int> meshIndices;
-	GLuint textureID;
+	Material material;
 };
 
 class Mesh
