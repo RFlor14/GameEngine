@@ -16,6 +16,8 @@
 #include "../Graphics/TextureHandler.h"
 #include "../Graphics/MaterialHandler.h"
 
+#include "../Events/EventListener.h"
+
 #include "Camera.h"
 
 class CoreEngine
@@ -53,6 +55,10 @@ public:
 	void SetCurrentScene(int sceneNum_); // takes in an int for this new scene number
 	void SetCamera(Camera* camera_);
 
+	void NotifyOfMousePressed(glm::ivec2 mouse_, int buttonType_);
+	void NotifyOfMouseReleased(glm::ivec2 mouse_, int buttonType_);
+	void NotifyOfMouseMove(glm::ivec2 mouse_);
+	void NotifyOfMouseScroll(int y_);
 
 private:
 

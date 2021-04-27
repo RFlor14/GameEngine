@@ -72,6 +72,15 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 		return isRunning = false;
 	}
 
+	/*
+	 Pass in an isntance of the SDL window,
+	 then pass in the x and y position of
+	 where you want the mosue to be located.
+	*/
+	SDL_WarpMouseInWindow(window->GetWindow(),
+		window->GetWidth() / 2,
+		window->GetHeight() / 2);
+
 	// SETTING UP SHADER
 	ShaderHandler::GetInstance()->CreateProgram("colourShader",
 		"Engine/Shaders/ColourVertexShader.glsl",
@@ -135,6 +144,7 @@ void CoreEngine::Run()
 	while (isRunning)
 	{
 		timer.UpdateFrameTicks(); // Again, just updates previous and current ticks varables equal to.
+		EventListener::Update(); // Make sure we're updating our events
 		Update(timer.GetDeltaTime()); // Uses our GetDeltaTime function, instead of hardcoding
 		Render();
 
@@ -211,6 +221,22 @@ void CoreEngine::SetCamera(Camera* camera_)
 	camera = camera_;
 }
 
+void CoreEngine::NotifyOfMousePressed(glm::ivec2 mouse_, int buttonType_)
+{
+}
+
+void CoreEngine::NotifyOfMouseReleased(glm::ivec2 mouse_, int buttonType_)
+{
+}
+
+void CoreEngine::NotifyOfMouseMove(glm::ivec2 mouse_)
+{
+}
+
+void CoreEngine::NotifyOfMouseScroll(int y_)
+{
+}
+
 void CoreEngine::Update(const float deltaTime_) 
 {
 	/*
@@ -223,8 +249,6 @@ void CoreEngine::Update(const float deltaTime_)
 		//std::cout << deltaTime_ << std::endl; // verifies if timer is working properly.
 	}
 
-
-	
 }
 
 void CoreEngine::Render()
