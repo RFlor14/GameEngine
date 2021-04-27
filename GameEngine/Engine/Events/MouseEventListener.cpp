@@ -38,7 +38,7 @@ void MouseEventListener::Update(SDL_Event e_)
 	else if (e_.type == SDL_MOUSEMOTION)
 	{
 		UpdateMousePosition();
-		NotifyOfMouseMoved();
+		NotifyOfMouseMove();
 	}
 	else if (e_.type == SDL_MOUSEWHEEL)
 	{
@@ -50,18 +50,34 @@ void MouseEventListener::Update(SDL_Event e_)
 
 void MouseEventListener::NotifyOfMousePressed(int buttonType_)
 {
+	if (engineInstance)
+	{
+		engineInstance->NotifyOfMousePressed(mouse, buttonType_);
+	}
 }
 
 void MouseEventListener::NotifyOfMouseReleased(int buttonType_)
 {
+	if (engineInstance)
+	{
+		engineInstance->NotifyOfMouseReleased(mouse, buttonType_);
+	}
 }
 
-void MouseEventListener::NotifyOfMouseMoved()
+void MouseEventListener::NotifyOfMouseMove()
 {
+	if (engineInstance)
+	{
+		engineInstance->NotifyOfMouseMove(mouse);
+	}
 }
 
 void MouseEventListener::NotifyOfMouseScroll(int y_)
 {
+	if (engineInstance)
+	{
+		engineInstance->NotifyOfMouseScroll(y_);
+	}
 }
 
 glm::ivec2 MouseEventListener::GetPreviousMousePosition()

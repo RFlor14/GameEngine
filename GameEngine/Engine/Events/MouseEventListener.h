@@ -36,7 +36,7 @@ public:
 	*/
 	static void NotifyOfMousePressed(int buttonType_);
 	static void NotifyOfMouseReleased(int buttonType_);
-	static void NotifyOfMouseMoved();
+	static void NotifyOfMouseMove();
 	static void NotifyOfMouseScroll(int y_);
 
 	static glm::ivec2 GetPreviousMousePosition();
