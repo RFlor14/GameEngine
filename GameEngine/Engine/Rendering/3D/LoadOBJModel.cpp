@@ -48,6 +48,11 @@ std::vector<SubMesh> LoadOBJModel::GetSubMeshes()
 	return subMeshes;
 }
 
+BoundingBox LoadOBJModel::GetBoundingBox() const
+{
+	return BoundingBox();
+}
+
 /*
  Happens when we finished going through all the data of
  a specific mesh.

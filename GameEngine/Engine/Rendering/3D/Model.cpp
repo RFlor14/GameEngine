@@ -127,6 +127,11 @@ GLuint Model::GetShaderProgram() const
 	return shaderProgram;
 }
 
+BoundingBox Model::GetBoundingBox() const
+{
+	return BoundingBox();
+}
+
 /*
  Similar to old Get Transform, this creates the
  transformation matrix, but now we're using the glm functions.

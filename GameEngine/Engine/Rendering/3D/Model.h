@@ -42,6 +42,8 @@ public:
 
 	GLuint GetShaderProgram() const;
 
+	BoundingBox GetBoundingBox() const;
+
 private:
 	
 	// creates the transformation matrix, takes in (pos, ang...)'s values to create that matrix.
@@ -63,6 +65,7 @@ private:
 
 	LoadOBJModel* obj;
 
+	BoundingBox boundingBox;
 };
 #endif // !MODEL_H
 
