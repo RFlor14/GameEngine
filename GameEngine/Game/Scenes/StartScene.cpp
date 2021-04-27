@@ -27,15 +27,8 @@ void StartScene::Update(const float deltaTime_)
 
 	This was also done in scott's SDL engine.
 	*/
-	if (SDL_PollEvent(&event)) {
-		switch (event.key.keysym.sym) {
-		case SDLK_1:
-			CoreEngine::GetInstance()->SetCurrentScene(1);
-			break;
-		default:
-			break;
-		}
-	}
+	CoreEngine::GetInstance()->SetCurrentScene(1);
+
 }
 
 void StartScene::Render()

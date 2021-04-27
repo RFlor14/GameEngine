@@ -81,6 +81,8 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 		window->GetWidth() / 2,
 		window->GetHeight() / 2);
 
+	MouseEventListener::RegisteringEngineObject(this);
+
 	// SETTING UP SHADER
 	ShaderHandler::GetInstance()->CreateProgram("colourShader",
 		"Engine/Shaders/ColourVertexShader.glsl",
@@ -231,10 +233,18 @@ void CoreEngine::NotifyOfMouseReleased(glm::ivec2 mouse_, int buttonType_)
 
 void CoreEngine::NotifyOfMouseMove(glm::ivec2 mouse_)
 {
+	if (camera)
+	{
+		camera->ProcessMouseMovement(MouseEventListener::GetMouseOffset());
+	}
 }
 
 void CoreEngine::NotifyOfMouseScroll(int y_)
 {
+	if (camera)
+	{
+		camera->ProcessMouseZoom(y_);
+	}
 }
 
 void CoreEngine::Update(const float deltaTime_) 

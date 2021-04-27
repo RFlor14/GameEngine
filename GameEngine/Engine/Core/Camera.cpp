@@ -116,7 +116,7 @@ void Camera::ProcessMouseMovement(glm::vec2 offset_)
 	offset_ *= 0.05f; // Mouse sens
 
 	yaw += offset_.x;
-	pitch += offset_.y;
+	pitch -= offset_.y;
 
 	if (pitch > 89.0f) 
 	{
@@ -154,7 +154,6 @@ void Camera::ProcessMouseZoom(int y_)
 
 	UpdateCameraVectors();
 } 
-
 
 void Camera::UpdateCameraVectors()
 {
