@@ -177,3 +177,126 @@ int OctNode::GetChildCount() const
 {
     return childNum;
 }
+
+OctSpatialPartition::OctSpatialPartition(float worldSize_) : 
+    root(nullptr), rayIntersectionList(std::vector<OctNode*>())
+{
+    root = new OctNode(glm::vec3(-(worldSize_ / 2.0f)), worldSize_, nullptr);
+    root->Octify(3);
+    std::cout << "There are " << root->GetChildCount() << " child nodes" << std::endl;
+
+    rayIntersectionList.reserve(20);
+
+}
+
+OctSpatialPartition::~OctSpatialPartition()
+{
+    if (rayIntersectionList.size() > 0)
+    {
+        for (auto cell : rayIntersectionList)
+        {
+            cell = nullptr;
+        }
+        rayIntersectionList.clear();
+    }
+
+    delete root;
+    root = nullptr;
+}
+
+void OctSpatialPartition::AddObject(GameObject* obj_)
+{
+    /*
+     Calls in the private recursive function
+     and will pass in the root node, because
+     the root node is where we want to start on
+     and the specific object that we want
+     to add to the spatial partitioning system.
+    */
+    AddObjectToCell(root, obj_);
+}
+
+GameObject* OctSpatialPartition::GetCollision(Ray ray_)
+{
+    /*
+     Make sure we clear out the previous collisions
+     ray intersection list.
+    */
+    if (rayIntersectionList.size() > 0)
+    {
+        for (auto cell : rayIntersectionList)
+        {
+            cell = nullptr;
+        }
+        rayIntersectionList.clear();
+    }
+
+    /*
+     Final part of the preparation phase,
+     it will go and fill in this ray
+     intersection list vector.
+    */
+    PrepareCollisionQuery(root, ray_);
+
+    /*
+     Collision checking of the get collision funciton.
+
+     Similar to Collision Handler.
+    */
+    GameObject* result = nullptr;
+    float shortestDistance = FLT_MAX;
+
+    /*
+     For each node in the array intersection list,
+     go through all of the objects in the node's object list,
+
+     for each game object inside the ray intersection list vector,
+     check to see if the ray is colliding with the objects
+     bounding box.
+
+     If so check the ray intersection distance is less than
+     the shortest distance variable.
+
+     If true, set up the result game object pointer = to
+     current game object we're looking at, then update the
+     shortest distance variable.
+    */
+    for (auto cell : rayIntersectionList)
+    {
+        for (auto obj : cell->objectList)
+        {
+            if (ray_.IsColliding(&obj->GetBoundingBox()))
+            {
+                if (ray_.intersectionDist < shortestDistance)
+                {
+                    result = obj;
+                    shortestDistance = ray_.intersectionDist;
+                }
+            }
+        }
+
+        /*
+         If we find an object, stop
+         looking for anymore objects,
+         then return the game object.
+        */
+        if (result != nullptr)
+        {
+            return result;
+        }
+    }
+
+    /*
+     If we checked all of the objects in all of the nodes,
+     and there was no result, return nullptr.
+    */
+    return nullptr;
+}
+
+void OctSpatialPartition::AddObjectToCell(OctNode* cell_, GameObject* obj_)
+{
+}
+
+void OctSpatialPartition::PrepareCollisionQuery(OctNode* cel_, Ray ray_)
+{
+}

@@ -72,12 +72,70 @@ public:
 	int GetChildCount() const;
 
 private:
+	friend class OctSpatialPartition;
 	BoundingBox* octBounds;
 	OctNode* parent;
 	OctNode* children[CHILDREN_NUMBER];
 	std::vector<GameObject*> objectList;
 	float size;
 	static int childNum;
+};
+
+
+/*
+ Since its closesly related to OctNode
+ we're adding another class [this] here.
+*/
+class OctSpatialPartition
+{
+public:
+	// takes in the size of the root node
+	OctSpatialPartition(float worldSize_);
+	~OctSpatialPartition();
+
+	/*
+	 Takes in a collideable game object,
+	 and figure out what specific oct node
+	 to add the object to.
+	*/
+	void AddObject(GameObject* obj_);
+
+	/*
+	 Specific ray being vreated goes through the scene,
+	 then it does the collision check, and return
+	 the specific game object that was hit (if one was hit).
+	*/
+	GameObject* GetCollision(Ray ray_);
+
+private:
+	/*
+	 Root node gives us a refference
+	 to every single node inside of the scene.
+	*/
+	OctNode* root;
+
+	/*
+	 Holds a bunch of oct node pointers, the vector
+	 represents, when we go to collision, we want
+	 to create the list of nodes that this ray Collides with.  
+	*/
+	std::vector<OctNode*> rayIntersectionList;
+
+	/*
+	 These two function are recursive functions.
+
+	 They will use recursion, it wil check the current
+	 oct node passed in, to see, if it's a leaf.
+
+	 If it's a leaf, it checks to see with the [AddObjectToCell]
+	 if the game objects bounding box collides with the
+	 leaf oct node bounding box.
+
+	 If the two colliders intersect, then we add the
+	 game object to that leaf node.
+	*/
+	void AddObjectToCell(OctNode* cell_, GameObject* obj_);
+	void PrepareCollisionQuery(OctNode* cell_, Ray ray_);
 
 };
 
