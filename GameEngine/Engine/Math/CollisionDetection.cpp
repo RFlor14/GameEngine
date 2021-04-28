@@ -55,6 +55,154 @@ Ray CollisionDetection::MousePosToWorldRay(glm::vec2 mouseCoords_, glm::vec2 scr
 
 bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 {
-	return false;
+	/*
+	 Set up variables for convenience.
+	*/
+	glm::mat4 modelMatrix = box_->transform;
+	glm::vec3 rayOrigin = ray_->origin;
+	glm::vec3 rayDirection = ray_->direction;
+	glm::vec3 boxMin = box_->minVert;
+	glm::vec3 boxMax = box_->maxVert;
+
+	float tMin = CoreEngine::GetInstance()->GetCamera()->GetNearPlane();
+	float tMax = CoreEngine::GetInstance()->GetCamera()->GetFarPlane();
+
+	/*
+	 To get the world position (very last column of the model matrix
+	 from the box) we use [], just like for a vector or an array.
+
+	 When we're looking at the fourth column, we need to use
+	 the number 3 for the index value.
+
+	 Since worldPos is a 3d vector we're using x,y,z of the
+	 model matrix last column.
+	*/
+	glm::vec3 worldPos(modelMatrix[3].x, modelMatrix[3].y, modelMatrix[3].z);
+	
+	// Checks the difference of.
+	glm::vec3 delta = worldPos - rayOrigin;
+
+	// X Axis
+	glm::vec3 xAxis(modelMatrix[0].x, modelMatrix[0].y, modelMatrix[0].z);
+	float dotDelta = glm::dot(xAxis, delta);
+	float dotDir = glm::dot(rayDirection, xAxis);
+	if (fabs(dotDir) > 0.001f)
+	{
+		float t1 = (dotDelta + boxMin.x) / dotDir;
+		float t2 = (dotDelta + boxMax.x) / dotDir;
+
+		if (t1 > t2)
+		{
+			float w = t1;
+			t1 = t2;
+			t2 = w;
+		}
+
+		if (t2 < tMax)
+		{
+			tMax = t2;
+		}
+
+		if (t1 > tMin)
+		{
+			tMin = t1;
+		}
+
+		if (tMax < tMin)
+		{
+			return false;
+		}
+	}
+	else 
+	{
+		if (-dotDelta + boxMin.x > 0.0f || -dotDelta + boxMax.x < 0.0f)
+		{
+			return false;
+		}
+	}
+
+	// Y Axis
+	glm::vec3 yAxis(modelMatrix[1].x, modelMatrix[1].y, modelMatrix[1].z);
+	float dotDeltaY = glm::dot(yAxis, delta);
+	float dotDirY = glm::dot(rayDirection, yAxis);
+	if (fabs(dotDir) > 0.001f)
+	{
+		float t1 = (dotDelta + boxMin.y) / dotDir;
+		float t2 = (dotDelta + boxMax.y) / dotDir;
+
+		if (t1 > t2)
+		{
+			float w = t1;
+			t1 = t2;
+			t2 = w;
+		}
+
+		if (t2 < tMax)
+		{
+			tMax = t2;
+		}
+
+		if (t1 > tMin)
+		{
+			tMin = t1;
+		}
+
+		if (tMax < tMin)
+		{
+			return false;
+		}
+
+	}
+	else
+	{
+		if (-dotDeltaY + boxMin.y > 0.0f || -dotDeltaY + boxMax.y < 0.0f)
+		{
+			return false;
+		}
+	}
+
+
+	// Z Axis
+	glm::vec3 zAxis(modelMatrix[2].x, modelMatrix[2].y, modelMatrix[2].z);
+	float dotDeltaZ = glm::dot(zAxis, delta);
+	float dotDirZ = glm::dot(rayDirection, zAxis);
+	if (fabs(dotDir) > 0.001f)
+	{
+		float t1 = (dotDelta + boxMin.y) / dotDir;
+		float t2 = (dotDelta + boxMax.y) / dotDir;
+
+		if (t1 > t2)
+		{
+			float w = t1;
+			t1 = t2;
+			t2 = w;
+		}
+
+		if (t2 < tMax)
+		{
+			tMax = t2;
+		}
+
+		if (t1 > tMin)
+		{
+			tMin = t1;
+		}
+
+		if (tMax < tMin)
+		{
+			return false;
+		}
+
+	}
+	else
+	{
+		if (-dotDeltaZ + boxMin.z > 0.0f || -dotDeltaZ + boxMax.z < 0.0f)
+		{
+			return false;
+		}
+	}
+
+	ray_->intersectionDist = tMin;
+	return true;
 }
 
