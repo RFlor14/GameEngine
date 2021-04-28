@@ -265,7 +265,8 @@ GameObject* OctSpatialPartition::GetCollision(Ray ray_)
     {
         for (auto obj : cell->objectList)
         {
-            if (ray_.IsColliding(&obj->GetBoundingBox()))
+            BoundingBox o = obj->GetBoundingBox();
+            if (ray_.IsColliding(&o))
             {
                 if (ray_.intersectionDist < shortestDistance)
                 {
@@ -293,10 +294,68 @@ GameObject* OctSpatialPartition::GetCollision(Ray ray_)
     return nullptr;
 }
 
+/*
+ Check to see if the specific node passed in is a leaf node,
+ if it's a leaf node, check to see if the game objects bounding box
+ collides with that nodes bounding box.
+
+ If the two bounding boxes collide or [intersect], add
+ the game object to the node.
+
+ [if] if node is not a leaf node, create a [for loop] where it
+ goes through each child of that node, and recursively calls
+ this function on each child.
+
+ Tip: if node is leaf, leaf nodes bound box intersects w/ game obj
+ bound box, print out that specific game object that was
+ added to the node and its position.
+*/
 void OctSpatialPartition::AddObjectToCell(OctNode* cell_, GameObject* obj_)
 {
+    if (obj_->GetBoundingBox().Intersects(cell_->GetBoundingBox()))
+    {
+        if (cell_->IsLeaf())
+        {
+            cell_->AddCollisionObject(obj_);
+            std::cout << "Added " << obj_->GetTag() << " to cell. Max: " <<
+                to_string(obj_->GetBoundingBox().maxVert) << std::endl;
+        }
+
+        else
+        {
+            for (int i = 0; i < CHILDREN_NUMBER; i++)
+            {
+                AddObjectToCell(cell_->children[i], obj_);
+            }
+        }
+    }
 }
 
-void OctSpatialPartition::PrepareCollisionQuery(OctNode* cel_, Ray ray_)
+/*
+ If the node we pass in is a leaf node, check to see if the ray passed
+ in intersects with the nodes bounding box.
+
+ If so, add the node to the ray intersection list vector.
+
+ If not, do same thing as AddObjToCell, [for loop] to go through each child
+ of the node, and call prepare collision query on the child.
+
+*/
+void OctSpatialPartition::PrepareCollisionQuery(OctNode* cell_, Ray ray_)
 {
+    if (ray_.IsColliding(cell_->GetBoundingBox()))
+    {
+        if (cell_->IsLeaf())
+        {
+            rayIntersectionList.push_back(cell_);
+        }
+
+        else
+        {
+            for (int i = 0; i < CHILDREN_NUMBER; i++)
+            {
+                PrepareCollisionQuery(cell_->children[i], ray_);
+            }
+        }
+    }
 }
