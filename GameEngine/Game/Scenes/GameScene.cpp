@@ -19,7 +19,7 @@ bool GameScene::OnCreate()
 	// Creates the light
 	CoreEngine::GetInstance()->GetCamera()->AddLightSources(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f)));
 
-	CollisionHandler::GetInstance()->OnCreate();
+	CollisionHandler::GetInstance()->OnCreate(100.0f);
 
 	//// Creates the model, pass in the GLuint for the shader program
 	Model* diceModel = new Model("Resources/Models/Dice.obj",
@@ -29,9 +29,6 @@ bool GameScene::OnCreate()
 	Model* appleModel = new Model("Resources/Models/Apple.obj",
 	"Resources/Materials/Apple.mtl",
 	ShaderHandler::GetInstance()->GetShader("basicShader"));
-
-	// test transform
-	// model->SetScale(glm::vec3(0.5f));
 
 	//Adds the model to the scene graph
 	SceneGraph::GetInstance()->AddModel(diceModel);
