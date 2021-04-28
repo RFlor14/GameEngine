@@ -130,6 +130,11 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 			float x, y, z;
 			v >> x >> y >> z;
 
+			/*
+			 Basically just binding the x,y,z to the bounding box,
+			 depending on if the current value is < or > the 
+			 bounding box's min and max.
+			*/
 			if (boundingBox.minVert.x > x) boundingBox.minVert.x = x;
 			if (boundingBox.minVert.y > y) boundingBox.minVert.y = y;
 			if (boundingBox.minVert.z > z) boundingBox.minVert.z = z;
