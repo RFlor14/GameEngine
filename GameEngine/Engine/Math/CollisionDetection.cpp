@@ -85,12 +85,12 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 
 	// X Axis
 	glm::vec3 xAxis(modelMatrix[0].x, modelMatrix[0].y, modelMatrix[0].z);
-	float dotDelta = glm::dot(xAxis, delta);
-	float dotDir = glm::dot(rayDirection, xAxis);
-	if (fabs(dotDir) > 0.001f)
+	float dotDeltaX = glm::dot(delta, xAxis);
+	float dotDirX = glm::dot(rayDirection, xAxis);
+	if (fabs(dotDirX) > 0.001f)
 	{
-		float t1 = (dotDelta + boxMin.x) / dotDir;
-		float t2 = (dotDelta + boxMax.x) / dotDir;
+		float t1 = (dotDeltaX + boxMin.x) / dotDirX;
+		float t2 = (dotDeltaX + boxMax.x) / dotDirX;
 
 		if (t1 > t2)
 		{
@@ -116,7 +116,7 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 	}
 	else 
 	{
-		if (-dotDelta + boxMin.x > 0.0f || -dotDelta + boxMax.x < 0.0f)
+		if (-dotDeltaX + boxMin.x > 0.0f || -dotDeltaX + boxMax.x < 0.0f)
 		{
 			return false;
 		}
@@ -124,12 +124,12 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 
 	// Y Axis
 	glm::vec3 yAxis(modelMatrix[1].x, modelMatrix[1].y, modelMatrix[1].z);
-	float dotDeltaY = glm::dot(yAxis, delta);
+	float dotDeltaY = glm::dot(delta , yAxis);
 	float dotDirY = glm::dot(rayDirection, yAxis);
-	if (fabs(dotDir) > 0.001f)
+	if (fabs(dotDirY) > 0.001f)
 	{
-		float t1 = (dotDelta + boxMin.y) / dotDir;
-		float t2 = (dotDelta + boxMax.y) / dotDir;
+		float t1 = (dotDeltaY + boxMin.y) / dotDirY;
+		float t2 = (dotDeltaY + boxMax.y) / dotDirY;
 
 		if (t1 > t2)
 		{
@@ -165,12 +165,12 @@ bool CollisionDetection::RayObbIntersection(Ray* ray_, BoundingBox* box_)
 
 	// Z Axis
 	glm::vec3 zAxis(modelMatrix[2].x, modelMatrix[2].y, modelMatrix[2].z);
-	float dotDeltaZ = glm::dot(zAxis, delta);
+	float dotDeltaZ = glm::dot(delta, zAxis);
 	float dotDirZ = glm::dot(rayDirection, zAxis);
-	if (fabs(dotDir) > 0.001f)
+	if (fabs(dotDirZ) > 0.001f)
 	{
-		float t1 = (dotDelta + boxMin.y) / dotDir;
-		float t2 = (dotDelta + boxMax.y) / dotDir;
+		float t1 = (dotDeltaZ + boxMin.z) / dotDirZ;
+		float t2 = (dotDeltaZ + boxMax.z) / dotDirZ;
 
 		if (t1 > t2)
 		{

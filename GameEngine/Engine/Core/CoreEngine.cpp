@@ -265,7 +265,7 @@ void CoreEngine::Update(const float deltaTime_)
 void CoreEngine::Render()
 {
 	// Same thing from Main.cpp
-	glClearColor(1.0f, 1.0f, 0.0f, 1.0f); // Tell's OpenGL what color should be used when cleared. (R,G,B,A)
+	glClearColor(1.0f, 0.0f, 1.0f, 1.0f); // Tell's OpenGL what color should be used when cleared. (R,G,B,A)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Tell's OpenGL to clear Color and Depth buffer bit.
 
 	// Calls in game's render function, if gameInterface exists

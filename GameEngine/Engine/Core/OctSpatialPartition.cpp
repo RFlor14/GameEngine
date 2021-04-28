@@ -95,7 +95,7 @@ void OctNode::Octify(int depth_)
      size: we pass in half var
      Last param: parent we pass [this] because this specific oct node is creating its children.
 
-     Example TLF - Since its top, we add half to Y || front, add half to z || left, do nothing 
+     Example TLF - Left, do nothing to X || Top, we add half to Y || Front, add half to Z 
      For the opposite sides, just do the opposite of how we did it.
     */
     if (depth_ > 0 && this)
@@ -318,7 +318,7 @@ void OctSpatialPartition::AddObjectToCell(OctNode* cell_, GameObject* obj_)
         {
             cell_->AddCollisionObject(obj_);
             std::cout << "Added " << obj_->GetTag() << " to cell. Max: " <<
-                to_string(obj_->GetBoundingBox().maxVert) << std::endl;
+                to_string(cell_->GetBoundingBox()->maxVert) << std::endl;
         }
 
         else
