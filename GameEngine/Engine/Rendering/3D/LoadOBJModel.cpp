@@ -50,7 +50,7 @@ std::vector<SubMesh> LoadOBJModel::GetSubMeshes()
 
 BoundingBox LoadOBJModel::GetBoundingBox() const
 {
-	return BoundingBox();
+	return boundingBox;
 }
 
 /*
@@ -108,6 +108,8 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 	}
 
 	std::string line;
+	boundingBox.maxVert = glm::vec3(-1000.0f);
+	boundingBox.minVert = glm::vec3(1000.0f);
 
 	while (std::getline(in, line))
 	{
@@ -127,7 +129,17 @@ void LoadOBJModel::LoadModel(const std::string& filePath_)
 			std::stringstream v(line.substr(2));
 			float x, y, z;
 			v >> x >> y >> z;
+
+			if (boundingBox.minVert.x > x) boundingBox.minVert.x = x;
+			if (boundingBox.minVert.y > y) boundingBox.minVert.y = y;
+			if (boundingBox.minVert.z > z) boundingBox.minVert.z = z;
+
+			if (boundingBox.maxVert.x < x) boundingBox.maxVert.x = x;
+			if (boundingBox.maxVert.y < y) boundingBox.maxVert.y = y;
+			if (boundingBox.maxVert.z < z) boundingBox.maxVert.z = z;
+
 			vertices.push_back(glm::vec3(x, y, z));
+
 		}
 
 		//NORMAL DATA

@@ -13,8 +13,7 @@ public:
 
 	If we want an empty game object, we just pass in nullptr.
 	*/
-	GameObject(Model* model_);
-	GameObject(Model* model_, glm::vec3 position_);
+	GameObject(Model* model_, glm::vec3 position_ = glm::vec3());
 	~GameObject();
 
 	void Update(const float deltaTime_);
@@ -25,6 +24,7 @@ public:
 	glm::vec3 GetRotation() const;
 	glm::vec3 GetScale() const;
 	std::string GetTag() const;
+	BoundingBox GetBoundingBox() const;
 
 	void SetPosition(glm::vec3 position_);
 	void SetAngle(float angle_);
@@ -48,6 +48,8 @@ private:
 	glm::vec3 rotation;
 	glm::vec3 scale;
 	std::string tag;
+
+	BoundingBox boundingBox;
 };
 
 #endif // !GAMEOBJECT_H

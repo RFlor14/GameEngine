@@ -36,7 +36,7 @@ bool GameScene::OnCreate()
 	SceneGraph::GetInstance()->AddModel(appleModel);
 
 
-	SceneGraph::GetInstance()->AddGameObject(new GameObject(diceModel, glm::vec3(-2.0f, 0.0f, -2.0f)));
+	SceneGraph::GetInstance()->AddGameObject(new GameObject(diceModel, glm::vec3(-2.0f, 0.0f, -2.0f)), "Dice");
 	SceneGraph::GetInstance()->AddGameObject(new GameObject(appleModel, glm::vec3(1.5f, 0.0f, 0.0f)),
 		"Apple");
 
