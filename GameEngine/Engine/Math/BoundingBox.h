@@ -29,6 +29,33 @@ struct BoundingBox
 		transform = transform_;
 	}
 
+	inline bool Intersects(BoundingBox* box_)
+	{
+		glm::vec3 minCorner = GetTransformedPoint(minVert, transform);
+		glm::vec3 maxCorner = GetTransformedPoint(maxVert, transform);
+
+		glm::vec3 otherMinCorner = GetTransformedPoint(box_->minVert, box_->transform);
+		glm::vec3 otherMaxCorner = GetTransformedPoint(box_->maxVert, box_->transform);
+
+		return true;
+	}
+
+private:
+
+	/*
+	 Need a second gettransformed point function because during the box box
+	 intersection, doing it using the AABB is much simpler.	
+
+	 Take bounding box, and convert it to an axis alligned bounding box.
+
+	 To do this, move the min and max points of the bounding box, and
+	 translate them with the translation in the transformation matrix
+	 that the bounding box has in it.
+	*/
+	inline glm::vec3 GetTransformedPoint(glm::vec3 point_, glm::mat4 transform_)
+	{ 
+		return glm::vec3(transform_[3].x, transform_[3].y, transform_[3].z) + point_;
+	}
 };
 
 #endif // !BOUNDINGBOX_H
