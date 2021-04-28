@@ -191,6 +191,13 @@ void SceneGraph::AddGameObject(GameObject* go_, std::string tag_)
         std::string newTag = "GameObject" + std::to_string(sceneGameObjects.size() + 1);
         sceneGameObjects[newTag] = go_;
     }
+
+    /*
+     Add every single game object that is 
+     added to the scene graph, and add it
+     to the collisionHandler.
+    */
+    CollisionHandler::GetInstance()->AddObject(go_);
 }
 
 GameObject* SceneGraph::GetGameObject(std::string tag_)
