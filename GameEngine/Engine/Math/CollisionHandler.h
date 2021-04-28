@@ -3,6 +3,7 @@
 
 #include "Ray.h"
 #include "../Rendering/3D/GameObject.h"
+#include "../Core/OctSpatialPartition.h"
 
 class CollisionHandler
 {
@@ -14,7 +15,7 @@ public:
 
 	static CollisionHandler* GetInstance();
 
-	void OnCreate();
+	void OnCreate(float worldSize_);
 
 	
 	/*
@@ -45,6 +46,8 @@ private:
 
 	// Holds all of the previously collided objects w/ game objects.
 	static std::vector<GameObject*> prevCollisions;
+
+	static OctSpatialPartition* scenePartition;
 };
 
 #endif // !COLLISIONHANDLER_H
