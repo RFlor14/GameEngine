@@ -11,7 +11,8 @@ CollisionDetection::~CollisionDetection()
  Converts mouse coordinate (the 2D vector is on the near plane) to
  a ray that goes through our scene (ray that's int the WorldSpace).
 */
-Ray CollisionDetection::MousePosToWorldRay(glm::vec2 mouseCoords_, glm::vec2 screenSize_, Camera* camera_)
+Ray CollisionDetection::MousePosToWorldRay(glm::vec2 mouseCoords_, float screenWidth_,
+	float screenHeight_, Camera* camera_)
 {
 	// NDC is normalized device coordinates
 	
@@ -22,12 +23,12 @@ Ray CollisionDetection::MousePosToWorldRay(glm::vec2 mouseCoords_, glm::vec2 scr
 
 	 Then convert NDC to worldspace.
 	*/
-	glm::vec4 rayStartNDC((mouseCoords_.x / screenSize_.x - 0.5f) * 2.0f,
-		(mouseCoords_.y / screenSize_.y - 0.5f) * 2.0f,
+	glm::vec4 rayStartNDC((mouseCoords_.x / screenWidth_ - 0.5f) * 2.0f,
+		(mouseCoords_.y / screenHeight_ - 0.5f) * 2.0f,
 		-1.0f, 1.0f);
 	
-	glm::vec4 rayEndNDC((mouseCoords_.x / screenSize_.x - 0.5f) * 2.0f,
-		(mouseCoords_.y / screenSize_.y - 0.5f) * 2.0f,
+	glm::vec4 rayEndNDC((mouseCoords_.x / screenWidth_ - 0.5f) * 2.0f,
+		(mouseCoords_.y / screenHeight_ - 0.5f) * 2.0f,
 		0.0f, 1.0f);
 
 	/*

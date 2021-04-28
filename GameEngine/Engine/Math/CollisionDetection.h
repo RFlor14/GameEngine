@@ -22,8 +22,8 @@ public:
 	CollisionDetection() = delete;
 	~CollisionDetection();
 
-	static Ray MousePosToWorldRay(glm::vec2 mouseCoords_, glm::vec2 screenSize_,
-		Camera* camera_);
+	static Ray MousePosToWorldRay(glm::vec2 mouseCoords_, float screenWidth_,
+		float screenHeight_, Camera* camera_);
 
 	// Intersection function or collision detection function
 	static bool RayObbIntersection(Ray* ray_, BoundingBox* box_);
